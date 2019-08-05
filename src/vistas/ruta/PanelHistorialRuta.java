@@ -53,18 +53,27 @@ public class PanelHistorialRuta extends JPanel {
 					.addContainerGap(165, Short.MAX_VALUE))
 		);
 
-		String nombresColumnas[] = { "Mercancia", "Camión", "Fecha", "KM" };
-		String data[][] = { { "Cristal", "3930HDF", "10/07/19", "1000 km" },
-				{ "Excavadora","1400DLG", "2/07/19", "900 km", "500 km" },
-				{ "Combustible","2354DDX", "2/07/19", "200 km", "500 km" } };
+//		String nombresColumnas[] = { "Mercancia", "Camión", "Fecha", "KM" };
+//		String data[][] = { { "Cristal", "3930HDF", "10/07/19", "1000 km" },
+//				{ "Excavadora","1400DLG", "2/07/19", "900 km", "500 km" },
+//				{ "Combustible","2354DDX", "2/07/19", "200 km", "500 km" } };
 		table = new JTable();
 		Font font = new Font("Tahoma", Font.PLAIN, 16);
 		table.setFont(font);
 		table.getTableHeader().setFont(font);
-		DefaultTableModel defaultTableModel = new DefaultTableModel(data, nombresColumnas);
-		table.setModel(defaultTableModel);
+//		DefaultTableModel defaultTableModel = new DefaultTableModel(data, nombresColumnas);
+//		table.setModel(defaultTableModel);
 		scrollPane.setViewportView(table);
 		setLayout(groupLayout);
 
 	}
+
+	public JTable getTable() {
+		return table;
+	}
+
+	public void setTable(JTable table) {
+		this.table = table;
+	}
+	
 }

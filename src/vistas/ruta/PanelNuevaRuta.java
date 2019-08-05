@@ -6,6 +6,7 @@ import java.awt.Font;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -83,7 +84,6 @@ public class PanelNuevaRuta extends JPanel {
 				.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE).addGap(70)
 				.addComponent(panel_Mensaje2, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE).addGap(280)));
 		setLayout(groupLayout);
-		
 
 	}
 
@@ -123,8 +123,15 @@ public class PanelNuevaRuta extends JPanel {
 		return panelRuta.getComboConductorUno();
 	}
 
-	public JComboBox getComboConductorDos() {
-		return panelRuta.getComboConductorDos();
+	public JComboBox getComboConductorCinco() {
+		return panelRuta.getComboConductorCinco();
 	}
 
+	public JCheckBox getChBoxUno() {
+		return panelRuta.getChBoxUno();
+	}
+
+	public JCheckBox getChBoxDos() {
+		return panelRuta.getChBoxDos();
+	}
 }

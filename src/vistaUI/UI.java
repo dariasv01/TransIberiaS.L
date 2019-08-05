@@ -15,6 +15,7 @@ import java.util.spi.LocaleServiceProvider;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,6 +34,8 @@ import javax.swing.border.MatteBorder;
 import utiles.Mercancia;
 import vista.controlador.ControladorPanelConsultarCamion;
 import vista.controlador.ControladorPanelConsultarConductor;
+import vista.controlador.ControladorPanelHistorialRutas;
+import vista.controlador.ControladorPanelRutasActivas;
 import vistas.camion.PanelComprar;
 import vistas.camion.PanelConsultaCamion;
 import vistas.camion.PanelVender;
@@ -65,6 +68,8 @@ public class UI extends JFrame {
 	protected PanelHistorialRuta historialRuta = new PanelHistorialRuta("HISTORIAL RUTAS");
 	private ControladorPanelConsultarCamion controladorPanelConsultaCamion = new ControladorPanelConsultarCamion();
 	private ControladorPanelConsultarConductor controladorPanelConsultaConduc = new ControladorPanelConsultarConductor();
+	private ControladorPanelRutasActivas controladorPanelRutasActivas = new ControladorPanelRutasActivas();
+	private ControladorPanelHistorialRutas controladorPanelHistorialRuta = new ControladorPanelHistorialRutas();
 	protected JMenuItem menuItemHistorialCamion;
 
 	public UI() {
@@ -224,6 +229,7 @@ public class UI extends JFrame {
 		JMenuItem mntmRutasActivas = new JMenuItem("Rutas Activas");
 		mntmRutasActivas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				controladorPanelRutasActivas.rellenarTablaRutasActivas(rutaActiva);
 				asociarPanel("PanelRutaActiva");
 			}
 		});
@@ -235,6 +241,7 @@ public class UI extends JFrame {
 		JMenuItem mntmHistorialRutas = new JMenuItem("Historial de Rutas");
 		mntmHistorialRutas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				controladorPanelHistorialRuta.rellenarTablaHistorialRutas(historialRuta);
 				asociarPanel("PanelHistorialRuta");
 			}
 		});
@@ -280,7 +287,6 @@ public class UI extends JFrame {
 		// HORA
 		Timer tiempo = new Timer(100, new UI.horas());
 		tiempo.start();
-		
 
 	}
 
@@ -350,18 +356,25 @@ public class UI extends JFrame {
 	public JComboBox getComboBoxMercanica() {
 		return ruta.getComboMercancia();
 	}
-	
 
 	public JComboBox getComboBoxConductorUno() {
 		return ruta.getComboConductorUno();
 	}
 
-	public JComboBox getComboBoxConductorDos() {
-		return ruta.getComboConductorDos();
+	public JComboBox getComboBoxConductorCinco() {
+		return ruta.getComboConductorCinco();
 	}
 
 	public JComboBox getComboBoxCamion() {
 		return ruta.getComboCamion();
+	}
+	
+	public JCheckBox getChBoxUno() {
+		return ruta.getChBoxUno();
+	}
+
+	public JCheckBox getChBoxDos() {
+		return ruta.getChBoxDos();
 	}
 
 }

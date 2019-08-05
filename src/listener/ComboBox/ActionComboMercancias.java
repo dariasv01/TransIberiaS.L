@@ -7,6 +7,7 @@ import java.awt.event.FocusListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 
 import control.logica.Item;
@@ -17,17 +18,19 @@ import vistas.comunes.PanelRuta;
 
 public class ActionComboMercancias implements FocusListener, ActionListener {
 
-	private JComboBox mercancia, conductorUno, conductorDos, camion;
+	private JComboBox mercancia, conductorUno, conductorCinco;
 	private Facade facade;
 	private PanelRuta panel;
 	private ControladorPanelRuta controlador;
+	private JCheckBox chUno, chDos;
 
-	public ActionComboMercancias(JComboBox mercancia,JComboBox conductorUno, JComboBox conductorDos, JComboBox camion, Facade facade,
-			ControladorPanelRuta controlador, PanelRuta panel) {
+	public ActionComboMercancias(JComboBox mercancia, JComboBox conductorUno, JComboBox conductorCinco, JCheckBox chUno,
+			JCheckBox chDos, Facade facade, ControladorPanelRuta controlador, PanelRuta panel) {
 		this.mercancia = mercancia;
 		this.conductorUno = conductorUno;
-		this.conductorDos = conductorDos;
-		this.camion = camion;
+		this.conductorCinco = conductorCinco;
+		this.chUno = chUno;
+		this.chDos = chDos;
 		this.facade = facade;
 		this.panel = panel;
 		this.controlador = controlador;
@@ -35,15 +38,7 @@ public class ActionComboMercancias implements FocusListener, ActionListener {
 
 	@Override
 	public void focusGained(FocusEvent arg0) {
-	
-		for (Mercancia d : Mercancia.values()) {
-			mercancia.addItem(d.toString());
-		}
-		
-//		HashMap<Long, String> mapa = facade.obtnerMapaEnGaraje();
-//		for (Map.Entry<Long, String> entry : mapa.entrySet()) {
-//			camion.addItem(new Item(entry.getKey(), String.valueOf(entry.getKey())));
-//		}
+
 	}
 
 	@Override
@@ -52,19 +47,89 @@ public class ActionComboMercancias implements FocusListener, ActionListener {
 
 	}
 
-	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-//		JComboBox combo=(JComboBox)arg0.getSource();
-//		if(null!=combo.getSelectedItem()) {
-//		Item item= (Item) combo.getSelectedItem();
-//		for (Mercancia d : Mercancia.values()) {
-//			mercancia.addItem(d.toString());
-//		}
-//		for (Mercancia d : Mercancia.values()) {
-//			mercancia.addItem(d.toString());
-//		}
-//		}
+		JComboBox combo = (JComboBox) arg0.getSource();
+		if (null != combo.getSelectedItem() && mercancia.getItemCount() > 0) {
+			switch (mercancia.getSelectedIndex()) {
+			case 1:
+				HashMap<Long, String> mapa = facade.obtnerMapaFragil();
+				conductorUno.removeAllItems();
+				conductorCinco.removeAllItems();
+				for (Map.Entry<Long, String> entry : mapa.entrySet()) {
+					conductorUno.addItem(new Item(entry.getKey(), entry.getValue()));
+					conductorCinco.addItem(new Item(entry.getKey(), entry.getValue()));
+				}
+				if (mapa.size() == 1) {
+					conductorCinco.setEnabled(false);
+					chUno.setSelected(true);
+					chDos.setSelected(false);
+					chDos.setEnabled(false);
+					conductorCinco.removeAllItems();
+				} else {
+					chDos.setEnabled(true);
+				}
+				break;
+			case 2:
+				HashMap<Long, String> mapaDos = facade.obtnerMapaInflamable();
+				conductorUno.removeAllItems();
+				conductorCinco.removeAllItems();
+				for (Map.Entry<Long, String> entryDos : mapaDos.entrySet()) {
+					conductorUno.addItem(new Item(entryDos.getKey(), entryDos.getValue()));
+					conductorCinco.addItem(new Item(entryDos.getKey(), entryDos.getValue()));
+				}
+				if (mapaDos.size() == 1) {
+					conductorCinco.setEnabled(false);
+					chUno.setSelected(true);
+					chDos.setSelected(false);
+					chDos.setEnabled(false);
+					conductorCinco.removeAllItems();
+				} else {
+					chDos.setEnabled(true);
+				}
+				
+				break;
+			case 3:
+				HashMap<Long, String> mapaTres = facade.obtnerMapaPesada();
+				conductorUno.removeAllItems();
+				conductorCinco.removeAllItems();
+				for (Map.Entry<Long, String> entryTres : mapaTres.entrySet()) {
+					conductorUno.addItem(new Item(entryTres.getKey(), entryTres.getValue()));
+					conductorCinco.addItem(new Item(entryTres.getKey(), entryTres.getValue()));
+				}
+				if (mapaTres.size() == 1) {
+					conductorCinco.setEnabled(false);
+					chUno.setSelected(true);
+					chDos.setSelected(false);
+					chDos.setEnabled(false);
+					conductorCinco.removeAllItems();
+				} else {
+					chDos.setEnabled(true);
+				}
+				break;
+			case 4:
+				HashMap<Long, String> mapaCuatro = facade.obtnerMapaComun();
+				conductorUno.removeAllItems();
+				conductorCinco.removeAllItems();
+				for (Map.Entry<Long, String> entryCuatro : mapaCuatro.entrySet()) {
+					conductorUno.addItem(new Item(entryCuatro.getKey(), entryCuatro.getValue()));
+					conductorCinco.addItem(new Item(entryCuatro.getKey(), entryCuatro.getValue()));
+				}
+				if (mapaCuatro.size() == 1) {
+					conductorCinco.setEnabled(false);
+					chUno.setSelected(true);
+					chDos.setSelected(false);
+					chDos.setEnabled(false);
+					conductorCinco.removeAllItems();
+				} else {
+					chDos.setEnabled(true);
+				}
+				break;
+			default:
+				break;
+			}
+
+		}
 	}
 
 }

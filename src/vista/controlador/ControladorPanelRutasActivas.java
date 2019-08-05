@@ -7,34 +7,47 @@ import javax.swing.table.DefaultTableModel;
 
 import facade.Facade;
 import modelo.vista.CamionMV;
-import vistas.camion.PanelConsultaCamion;
+import modelo.vista.ConductorMV;
+import modelo.vista.RutaMV;
+import vistas.ruta.PanelRutaActiva;
 
 public class ControladorPanelRutasActivas {
 
 	private Facade facade = new Facade();
 
-	public void rellenarTablaCamion(PanelConsultaCamion panel) {
-		String nombresColumnas[] = { "Matricula", "Marca", "Potncia", "Estado" };
-		String[][] data = new String[facade.listadoIdCamiones().size()][4];
-		for (int i = 0; i < facade.listadoIdCamiones().size(); i++) {
-			CamionMV camion = facade.obtenerCamion(toString().valueOf(i + 1));
+	public void rellenarTablaRutasActivas(PanelRutaActiva panel) {
+		String nombresColumnas[] = { "Mercancia", "Camión", "Fecha", "KM", "KM recorridos", "Estado", "Conductor" };
+		String[][] data = new String[facade.listadoIdRutaActiva().size()][7];
+		for (int i = 0; i < facade.listadoIdRutaActiva().size(); i++) {
+			RutaMV ruta = facade.obtenerRutaActiva(toString().valueOf(i + 1));
+			CamionMV camion = facade.obtenerCamion(ruta.getCamionId().toString());
+			ConductorMV conductor = facade.obtenerConductor(ruta.getConductorUno().toString());
 			String matricula = camion.getMatricula();
-			String marca = "";
-			if (null != camion.getMarca()) {
-				marca = camion.getMarca().toString();
-			}
-			String potencia = camion.getPotencia();
+			String fecha = toString().valueOf(ruta.getFecha());
+			String km = toString().valueOf(ruta.getKm());
+			String kmRecorrido = toString().valueOf(ruta.getKmRecorrido());
+
+			String conductorNombre = conductor.getNombre();
 
 			String estado = "";
-			
-			if (null != camion.getEstado()) {
-				estado = camion.getEstado().toString();
+
+			if (null != ruta.getEstado()) {
+				estado = ruta.getEstado().toString();
 			}
-			
-			data[i][0] = matricula;
-			data[i][1] = marca;
-			data[i][2] = potencia;
-			data[i][3] = estado;
+
+			String mercancia = "";
+
+			if (null != ruta.getMercancia()) {
+				mercancia = ruta.getMercancia().toString();
+			}
+
+			data[i][0] = mercancia;
+			data[i][1] = matricula;
+			data[i][2] = fecha;
+			data[i][3] = km;
+			data[i][4] = kmRecorrido;
+			data[i][5] = estado;
+			data[i][6] = conductorNombre;
 
 		}
 

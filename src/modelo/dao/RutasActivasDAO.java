@@ -3,40 +3,54 @@ package modelo.dao;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import modelo.dto.RutaActivaDTO;
 import modelo.dto.RutaDTO;
+import utiles.EstadoCamion;
+import utiles.EstadoRuta;
 
 public class RutasActivasDAO {
 	private String rutaCarpeta = "rutasActivas";
 	private String extension = ".rut";
 	private String nombreFichero = "rutas";
-	private DAOColecciones<RutaDTO> acceso;
+	private DAOColecciones<RutaActivaDTO> acceso;
 
 	public RutasActivasDAO() {
 		String path = rutaCarpeta + File.separator + nombreFichero + extension;
-		acceso = new DAOColecciones<RutaDTO>(path, true);
+		acceso = new DAOColecciones<RutaActivaDTO>(path, true);
 	}
 
-	public boolean guardar(RutaDTO ruta) {
+	public boolean guardar(RutaActivaDTO ruta) {
 		return acceso.save(ruta);
 	}
 
-	public RutaDTO consultar(Long id) {
-		RutaDTO ruta = new RutaDTO();
+	public RutaActivaDTO consultar(Long id) {
+		RutaActivaDTO ruta = new RutaActivaDTO();
 		ruta.setID(id);
 		return acceso.findById(ruta);
 	}
 
-	public boolean modificar(RutaDTO ruta) {
+	public boolean modificar(RutaActivaDTO ruta) {
 		return acceso.modify(ruta);
 	}
 
 	public ArrayList<String> obtenerTodosIds() {
 		ArrayList<String> lista = new ArrayList<>();
-		for (RutaDTO ruta : acceso.getAll()) {
+		for (RutaActivaDTO ruta : acceso.getAll()) {
 			lista.add(String.valueOf(ruta.getID()));
 		}
 		return lista;
+	}
+
+	public HashMap<Long, String> obtenerMapaIDRutaActiva() {
+		HashMap<Long, String> mapa = new HashMap<Long, String>();
+		for (RutaActivaDTO ruta : acceso.getAll()) {
+			if ((!(ruta.getEstado() == EstadoRuta.Ruta)) || (ruta.getEstado() == EstadoRuta.Parada)) {
+				mapa.put(ruta.getID(), ruta.getCamionId().toString());
+			}
+		}
+		return mapa;
 	}
 
 	public Long obtenerId() {

@@ -5,25 +5,23 @@ import java.sql.Date;
 
 import utiles.Mercancia;
 
-public class RutaDTO implements Serializable{
+public class RutaDTO implements Serializable {
 	private Mercancia mercancia;
-	private CamionDTO camion;
+	private Long camionId;
 	private Date fecha;
 	private float km;
 	private Long ID;
-	
-	public RutaDTO(){
+
+	public RutaDTO() {
 	}
-	
-	public  RutaDTO(Mercancia mercancia,CamionDTO camion, Date fecha, float km, Long ID) {
-		this.mercancia=mercancia;
-		this.camion=camion;
-		this.fecha=fecha;
-		this.km=km;
+
+	public RutaDTO(Mercancia mercancia, Long camionId, Date fecha, float km, Long ID) {
+		this.mercancia = mercancia;
+		this.camionId = camionId;
+		this.fecha = fecha;
+		this.km = km;
 		this.ID = ID;
 	}
-	
-	
 
 	public Long getID() {
 		return ID;
@@ -41,12 +39,12 @@ public class RutaDTO implements Serializable{
 		this.mercancia = mercancia;
 	}
 
-	public CamionDTO getCamion() {
-		return camion;
+	public Long getCamionId() {
+		return camionId;
 	}
 
-	public void setCamion(CamionDTO camion) {
-		this.camion = camion;
+	public void setCamionId(Long camionId) {
+		this.camionId = camionId;
 	}
 
 	public Date getFecha() {
@@ -64,5 +62,10 @@ public class RutaDTO implements Serializable{
 	public void setKm(float km) {
 		this.km = km;
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		return this.ID.equals(((RutaDTO) obj).ID);
+	}
+
 }

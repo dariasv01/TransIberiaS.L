@@ -6,28 +6,36 @@ import java.util.HashMap;
 import modelo.dao.RutasActivasDAO;
 import modelo.dto.RutaActivaDTO;
 import modelo.vista.RutaMV;
+import utiles.EstadoCamion;
 import utiles.EstadoConductor;
 import utiles.EstadoRuta;
 import utiles.Validator;
 
-public class RutaNucleo {
+public class RutaActivaNucleo {
 private RutasActivasDAO dao= new RutasActivasDAO();
 	
-	public RutaNucleo() {
+	public RutaActivaNucleo() {
 	}
 	
 	public boolean nuevaRuta(RutaMV ruta) {
 		RutaActivaDTO rutaDTO= new RutaActivaDTO();
+		ConductorNucleo conductor =new ConductorNucleo();
+		CamionNucleo camion =new CamionNucleo();
 		rutaDTO.setMercancia(ruta.getMercancia());
-		rutaDTO.setCamion(ruta.getCamion());
+		rutaDTO.setCamionId(ruta.getCamionId());
 		rutaDTO.setFecha(ruta.getFecha());
 		rutaDTO.setKm(ruta.getKm());
 		rutaDTO.setKmRecorrido(ruta.getKmRecorrido());
 		rutaDTO.setConductorUno(ruta.getConductorUno());
 		rutaDTO.setConductorDos(ruta.getConductorDos());
 		rutaDTO.setEstado((EstadoRuta) EstadoRuta.Ruta);
-		Long IDconductor =dao.obtenerId();
-		rutaDTO.setID(IDconductor);
+		Long IDruta =dao.obtenerId();
+		rutaDTO.setID(IDruta);
+		conductor.modificarConductor(ruta.getConductorUno().toString(), EstadoConductor.Ruta);
+		if (rutaDTO.getConductorDos()!= null) {
+			conductor.modificarConductor(ruta.getConductorDos().toString(), EstadoConductor.Descanso);			
+		}
+		camion.modificarCamion(ruta.getCamionId().toString(), EstadoCamion.Ruta);
 		if (dao.guardar(rutaDTO)) {
 			return  true;
 		}
@@ -51,20 +59,22 @@ private RutasActivasDAO dao= new RutasActivasDAO();
 //		return  dao.eliminar(rutaDTO);
 //	}
 	
-//	public RutaMV obtenerRuta(String id) {
-//		RutaMV modelo=new RutaMV();
-//		RutaActivaDTO ruta=(RutaActivaDTO) dao.consultar(new Long(id));
-//		
-//		modelo.setID(ruta.getID());
-//		modelo.setNombre(ruta.getNombre());
-//		modelo.setDireccion(ruta.getDireccion());
-//		modelo.setTelefono(ruta.getTelefono());
-//		modelo.setHabilidad(ruta.getHabilidad());
-//		modelo.setEstado(ruta.getEstado());
-//		return modelo;
-//	}
-//
-//	public ArrayList<String> listadoIdRuta() {
-//		return dao.obtenerTodosIds();
-//	}
+	public RutaMV obtenerRuta(String id) {
+		RutaMV modelo=new RutaMV();
+		RutaActivaDTO ruta=(RutaActivaDTO) dao.consultar(new Long(id));
+		modelo.setID(ruta.getID());
+		modelo.setCamionId(ruta.getCamionId());
+		modelo.setConductorUno(ruta.getConductorUno());
+		modelo.setConductorDos(ruta.getConductorDos());
+		modelo.setFecha(ruta.getFecha());
+		modelo.setKm(ruta.getKm());
+		modelo.setKmRecorrido(ruta.getKmRecorrido());
+		modelo.setMercancia(ruta.getMercancia());
+		modelo.setEstado(ruta.getEstado());
+		return modelo;
+	}
+
+	public ArrayList<String> listadoIdRuta() {
+		return dao.obtenerTodosIds();
+	}
 }

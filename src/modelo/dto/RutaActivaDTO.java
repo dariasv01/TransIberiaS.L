@@ -8,15 +8,15 @@ import utiles.Mercancia;
 public class RutaActivaDTO extends RutaDTO {
 	private float kmRecorrido;
 	private EstadoRuta estado;
-	private ConductorDTO conductorUno, conductorDos;
+	private Long conductorUno, conductorDos;
 
 	public RutaActivaDTO() {
 
 	}
 
-	public RutaActivaDTO(Mercancia mercancia, CamionDTO camion, Date fecha, float km, float kmRecorrido,
-			EstadoRuta estado, ConductorDTO conductorUno, ConductorDTO conductorDos, Long ID) {
-		super(mercancia, camion, fecha, km, ID);
+	public RutaActivaDTO(Mercancia mercancia, Long camionId, Date fecha, float km, float kmRecorrido, EstadoRuta estado,
+			Long conductorUno, Long conductorDos, Long ID) {
+		super(mercancia, camionId, fecha, km, ID);
 		this.kmRecorrido = kmRecorrido;
 		this.estado = estado;
 		this.conductorUno = conductorUno;
@@ -39,22 +39,20 @@ public class RutaActivaDTO extends RutaDTO {
 		this.estado = estado;
 	}
 
-	public ConductorDTO getConductorUno() {
+	public Long getConductorUno() {
 		return conductorUno;
 	}
 
-	public void setConductorUno(ConductorDTO conductorUno) {
+	public void setConductorUno(Long conductorUno) {
 		this.conductorUno = conductorUno;
 	}
 
-	public ConductorDTO getConductorDos() {
+	public Long getConductorDos() {
 		return conductorDos;
 	}
 
-	public void setConductorDos(ConductorDTO conductorDos) {
+	public void setConductorDos(Long conductorDos) {
 		this.conductorDos = conductorDos;
 	}
-
-	
 
 }

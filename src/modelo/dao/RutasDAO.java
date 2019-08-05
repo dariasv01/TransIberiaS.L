@@ -9,7 +9,7 @@ import modelo.dto.RutaDTO;
 public class RutasDAO {
 	private String rutaCarpeta = "rutas";
 	private String extension = ".rut";
-	private String nombreFichero = "rutas";
+	private String nombreFichero = "rutasHistorico";
 	private DAOColecciones<RutaDTO> acceso;
 
 	public RutasDAO() {
@@ -31,27 +31,27 @@ public class RutasDAO {
 		return acceso.modify(ruta);
 	}
 
-//	public ArrayList<String> obtenerTodosIds() {
-//		ArrayList<String> lista = new ArrayList<>();
-//		for (RutaDTO ruta : acceso.getAll()) {
-//			lista.add(String.valueOf(ruta.getID()));
-//		}
-//		return lista;
-//	}
-//
-//	public Long obtenerId() {
-//		ArrayList<String> lista = obtenerTodosIds();
-//		Long idMax = null;
-//		for (String id : lista) {
-//			Long idAux = new Long(id);
-//			if (null == idMax || idAux > idMax) {
-//				idMax = idAux;
-//			}
-//		}
-//		if (null == idMax) {
-//			idMax = 0L;
-//		}
-//		return idMax + 1;
-//	}
+	public ArrayList<String> obtenerTodosIds() {
+		ArrayList<String> lista = new ArrayList<>();
+		for (RutaDTO ruta : acceso.getAll()) {
+			lista.add(String.valueOf(ruta.getID()));
+		}
+		return lista;
+	}
+
+	public Long obtenerId() {
+		ArrayList<String> lista = obtenerTodosIds();
+		Long idMax = null;
+		for (String id : lista) {
+			Long idAux = new Long(id);
+			if (null == idMax || idAux > idMax) {
+				idMax = idAux;
+			}
+		}
+		if (null == idMax) {
+			idMax = 0L;
+		}
+		return idMax + 1;
+	}
 
 }

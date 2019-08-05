@@ -19,13 +19,13 @@ import java.awt.event.ActionEvent;
 
 public class PanelRuta extends JPanel {
 	public JLabel lblNumero;
-	protected JComboBox ComboMercancia;
+	private JComboBox ComboMercancia;
 	protected JTextField txtEspecialidad;
 	protected JLabel lblConductorUno;
 	protected JLabel lblConductorDos;
 	protected JComboBox ComboConductorUno;
 	protected JLabel lblMercancia;
-	protected JComboBox ComboConductorDos;
+	protected JComboBox ComboConductorCinco;
 	protected JLabel lblCamion;
 	protected JComboBox ComboCamion;
 	protected JLabel lblDistancia;
@@ -54,7 +54,7 @@ public class PanelRuta extends JPanel {
 		ChBoxUno.setBackground(new Color(240, 230, 140));
 
 		ChBoxDos = new JCheckBox("2");
-
+		
 		ChBoxDos.setBackground(new Color(240, 230, 140));
 
 		lblConductorDos = new JLabel("Conductor Dos");
@@ -68,8 +68,8 @@ public class PanelRuta extends JPanel {
 		lblMercancia.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMercancia.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
 
-		ComboConductorDos = new JComboBox();
-		ComboConductorDos.setFont(new Font("Tahoma", Font.BOLD, 11));
+		ComboConductorCinco = new JComboBox();
+		ComboConductorCinco.setFont(new Font("Tahoma", Font.BOLD, 11));
 
 		lblCamion = new JLabel("Cami\u00F3n");
 		lblCamion.setHorizontalAlignment(SwingConstants.CENTER);
@@ -90,56 +90,64 @@ public class PanelRuta extends JPanel {
 		lblKm.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-				.createSequentialGroup().addContainerGap()
-				.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblMercancia, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblDistancia, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblConductorUno, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblConductorDos, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblCamion, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNumero, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(ComboConductorUno, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)
-						.addComponent(ComboConductorDos, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)
+						.addComponent(ComboConductorCinco, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)
 						.addComponent(ComboCamion, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup().addGap(1)
-								.addComponent(txtDistancia, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(lblKm, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup().addComponent(ChBoxUno).addGap(98)
-								.addComponent(ChBoxDos))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(txtDistancia, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblKm, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(ChBoxUno)
+							.addGap(98)
+							.addComponent(ChBoxDos))
 						.addComponent(ComboMercancia, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE))
-				.addContainerGap(105, Short.MAX_VALUE)));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-				.createSequentialGroup().addContainerGap()
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addContainerGap(640, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblMercancia, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 						.addComponent(ComboMercancia, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(ChBoxUno)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(ChBoxUno)
 						.addComponent(ChBoxDos)
 						.addComponent(lblNumero, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(ComboConductorUno, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblConductorUno, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(ComboConductorDos, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(ComboConductorCinco, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblConductorDos, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblCamion, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 						.addComponent(ComboCamion, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblDistancia, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtDistancia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblKm, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-				.addContainerGap(62, Short.MAX_VALUE)));
+						.addComponent(txtDistancia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblKm, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
+		);
 		setLayout(groupLayout);
 	}
 
@@ -199,14 +207,6 @@ public class PanelRuta extends JPanel {
 		this.lblMercancia = lblMercancia;
 	}
 
-	public JComboBox getComboConductorDos() {
-		return ComboConductorDos;
-	}
-
-	public void setComboConductorDos(JComboBox comboConductorDos) {
-		ComboConductorDos = comboConductorDos;
-	}
-
 	public JLabel getLblCamion() {
 		return lblCamion;
 	}
@@ -262,5 +262,13 @@ public class PanelRuta extends JPanel {
 	public void setChBoxDos(JCheckBox chBoxDos) {
 		ChBoxDos = chBoxDos;
 	}
-	
+
+	public JComboBox getComboConductorCinco() {
+		return ComboConductorCinco;
+	}
+
+	public void setComboConductorCinco(JComboBox comboConductorCinco) {
+		ComboConductorCinco = comboConductorCinco;
+	}
+
 }

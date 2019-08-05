@@ -5,7 +5,7 @@ import java.io.Serializable;
 import utiles.EstadoCamion;
 import utiles.Marca;
 
-public class CamionDTO implements Serializable{
+public class CamionDTO implements Serializable {
 	private Long ID;
 	private String matricula, potencia;
 	private Marca marca;
@@ -14,13 +14,12 @@ public class CamionDTO implements Serializable{
 	public CamionDTO() {
 	}
 
-	public CamionDTO(String matricula, Marca marca ,String potencia, EstadoCamion estado) {
+	public CamionDTO(String matricula, Marca marca, String potencia, EstadoCamion estado) {
 		this.matricula = matricula;
 		this.potencia = potencia;
 		this.marca = marca;
 		this.estado = estado;
 	}
-	
 
 	public EstadoCamion getEstado() {
 		return estado;
@@ -54,8 +53,6 @@ public class CamionDTO implements Serializable{
 		this.marca = marca;
 	}
 
-	
-
 	public Long getID() {
 		return ID;
 	}
@@ -66,6 +63,6 @@ public class CamionDTO implements Serializable{
 
 	@Override
 	public boolean equals(Object obj) {
-		return this.ID.equals(((CamionDTO)obj).ID);
+		return this.ID.equals(((CamionDTO) obj).ID);
 	}
 }

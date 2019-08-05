@@ -5,8 +5,10 @@ import java.util.HashMap;
 
 import modelo.dao.CamionDAO;
 import modelo.dto.CamionDTO;
+import modelo.dto.ConductorDTO;
 import modelo.vista.CamionMV;
 import utiles.EstadoCamion;
+import utiles.EstadoConductor;
 import utiles.Validator;
 
 public class CamionNucleo {
@@ -52,6 +54,16 @@ public class CamionNucleo {
 		modelo.setMarca(camion.getMarca());
 		modelo.setEstado(camion.getEstado());
 		return modelo;
+	}
+
+	public boolean modificarCamion(String id, EstadoCamion estado) {
+		CamionDTO camionDTO = dao.consultar(new Long(id));
+		camionDTO.setEstado(estado);
+		if (dao.modificar(camionDTO)) {
+			return true;
+		}
+		return false;
+
 	}
 
 	public ArrayList<String> listadoIdCamiones() {

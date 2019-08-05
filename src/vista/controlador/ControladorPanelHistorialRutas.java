@@ -7,34 +7,33 @@ import javax.swing.table.DefaultTableModel;
 
 import facade.Facade;
 import modelo.vista.CamionMV;
-import vistas.camion.PanelConsultaCamion;
+import modelo.vista.RutaMV;
+import vistas.ruta.PanelHistorialRuta;
 
 public class ControladorPanelHistorialRutas {
 
 	private Facade facade = new Facade();
 
-	public void rellenarTablaCamion(PanelConsultaCamion panel) {
-		String nombresColumnas[] = { "Matricula", "Marca", "Potncia", "Estado" };
-		String[][] data = new String[facade.listadoIdCamiones().size()][4];
-		for (int i = 0; i < facade.listadoIdCamiones().size(); i++) {
-			CamionMV camion = facade.obtenerCamion(toString().valueOf(i + 1));
+	public void rellenarTablaHistorialRutas(PanelHistorialRuta panel) {
+		String nombresColumnas[] = { "Mercancia", "Camión", "Fecha", "KM" };
+		String[][] data = new String[facade.listadoIdRutaHistorial().size()][4];
+		for (int i = 0; i < facade.listadoIdRutaHistorial().size(); i++) {
+			RutaMV ruta = facade.obtenerRutaHistorial(toString().valueOf(i + 1));
+			CamionMV camion = facade.obtenerCamion(ruta.getCamionId().toString());
 			String matricula = camion.getMatricula();
-			String marca = "";
-			if (null != camion.getMarca()) {
-				marca = camion.getMarca().toString();
-			}
-			String potencia = camion.getPotencia();
+			String fecha = toString().valueOf(ruta.getFecha());
+			String km = toString().valueOf(ruta.getKm());
 
-			String estado = "";
-			
-			if (null != camion.getEstado()) {
-				estado = camion.getEstado().toString();
+			String mercancia = "";
+
+			if (null != ruta.getMercancia()) {
+				mercancia = ruta.getMercancia().toString();
 			}
-			
-			data[i][0] = matricula;
-			data[i][1] = marca;
-			data[i][2] = potencia;
-			data[i][3] = estado;
+
+			data[i][0] = mercancia;
+			data[i][1] = matricula;
+			data[i][2] = fecha;
+			data[i][3] = km;
 
 		}
 

@@ -4,27 +4,26 @@ import java.sql.Date;
 
 import modelo.dto.CamionDTO;
 import modelo.dto.ConductorDTO;
-import utiles.EstadoConductor;
 import utiles.EstadoRuta;
 import utiles.Mercancia;
 
 public class RutaMV {
 	private Mercancia mercancia;
-	private CamionDTO camion;
+	private Long camionId;
 	private Date fecha;
 	private float km;
 	private float kmRecorrido;
 	private EstadoRuta estado;
-	private ConductorDTO conductorUno, conductorDos;
+	private Long conductorUno, conductorDos;
 	private Long ID;
 	
 	public RutaMV(){
 	}
 	
-	public  RutaMV(Mercancia mercancia, CamionDTO camion, Date fecha, float km, float kmRecorrido,
-			EstadoRuta estado, ConductorDTO conductorUno, ConductorDTO conductorDos, Long ID) {
+	public  RutaMV(Mercancia mercancia, Long camionId, Date fecha, float km, float kmRecorrido,
+			EstadoRuta estado, Long conductorUno, Long conductorDos, Long ID) {
 		this.mercancia=mercancia;
-		this.camion=camion;
+		this.camionId=camionId;
 		this.fecha=fecha;
 		this.km=km;
 		this.kmRecorrido = kmRecorrido;
@@ -51,12 +50,12 @@ public class RutaMV {
 		this.mercancia = mercancia;
 	}
 
-	public CamionDTO getCamion() {
-		return camion;
+	public Long getCamionId() {
+		return camionId;
 	}
 
-	public void setCamion(CamionDTO camion) {
-		this.camion = camion;
+	public void setCamionId(Long camionId) {
+		this.camionId = camionId;
 	}
 
 	public Date getFecha() {
@@ -91,19 +90,19 @@ public class RutaMV {
 		this.estado = estado;
 	}
 
-	public ConductorDTO getConductorUno() {
+	public Long getConductorUno() {
 		return conductorUno;
 	}
 
-	public void setConductorUno(ConductorDTO conductorUno) {
+	public void setConductorUno(Long conductorUno) {
 		this.conductorUno = conductorUno;
 	}
 
-	public ConductorDTO getConductorDos() {
+	public Long getConductorDos() {
 		return conductorDos;
 	}
 
-	public void setConductorDos(ConductorDTO conductorDos) {
+	public void setConductorDos(Long conductorDos) {
 		this.conductorDos = conductorDos;
 	}
 

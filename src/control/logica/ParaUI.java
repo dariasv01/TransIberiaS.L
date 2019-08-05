@@ -2,14 +2,16 @@ package control.logica;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import facade.Facade;
 import listener.ComboBox.ActionComboCamion;
 import listener.ComboBox.ActionComboConductor;
 import listener.ComboBox.ActionComboMercancias;
+import utiles.Mercancia;
 import vista.controlador.ControladorDatosPersonales;
 import vista.controlador.ControladorMensaje;
-import vista.controlador.ControladorPanelConsultarCamion;
 import vista.controlador.ControladorPanelMatricula;
 import vista.controlador.ControladorPanelRuta;
 import vistaUI.UI;
@@ -25,6 +27,7 @@ public class ParaUI extends UI {
 		rellenarComboBox();
 		setActionListener();
 	}
+
 //CAMION
 	ActionListener ComprarCamionListener = new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
@@ -61,11 +64,11 @@ public class ParaUI extends UI {
 			controladorMensaje.mostrarMensajes(despedir.getPanelMensaje(), "Baja correctamente");
 		}
 	};
-	//RUTA
+	// RUTA
 	ActionListener NuevaRutaListener = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			facade.guardarRuta(controlPanelRuta.obtenerDatos(getPanelRuta()));
-			//controlPanelRuta.vaciarDatos(despedir.getPanelDatosPersonales());
+			controlPanelRuta.vaciarDatos(ruta.getPanelRuta());
 			controladorMensaje.mostrarMensajes(ruta.getPanelMensaje(), "Ruta creada");
 		}
 	};
@@ -77,11 +80,24 @@ public class ParaUI extends UI {
 		// CONDUCTOR
 		contratar.panelMensaje.getBtnAplicr().addActionListener(ContratarListener);
 		despedir.panelMensaje.getBtnAplicr().addActionListener(DespedirListener);
-		//RUTA
-		//ruta.panelMensaje.getBtnAplicr().addActionListener(NuevaRutaListener);
+		// RUTA
+		ruta.panelMensaje.getBtnAplicr().addActionListener(NuevaRutaListener);
+		getChBoxUno().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getChBoxDos().setSelected(false);
+				getComboBoxConductorCinco().setEnabled(false);
+			}
+		});
+		
+		getChBoxDos().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getChBoxUno().setSelected(false);
+				getComboBoxConductorCinco().setEnabled(true);
+			}
+		});
 	}
 
-	private void rellenarComboBox() { 
+	private void rellenarComboBox() {
 		// CAMION
 		ActionComboCamion actionComboCamionBaja = new ActionComboCamion(getComboBoxIdVender(),
 				getComboBoxMatriculaVender(), facade, controladorPanelMatricula, getPanelMatriculaVender());
@@ -96,11 +112,18 @@ public class ParaUI extends UI {
 		getComboBoxIdConductor().addActionListener(actionComboConductorBaja);
 		getComboBoxNombreConductor().addFocusListener(actionComboConductorBaja);
 		getComboBoxNombreConductor().addActionListener(actionComboConductorBaja);
-		//RUTA
-//		ActionComboMercancias actionComboMercancia = new ActionComboMercancias(getComboBoxMercanica(),getComboBoxConductorUno(),getComboBoxConductorDos(),
-//				getComboBoxCamion(),facade, controlPanelRuta, getPanelRuta());
-//		getComboBoxMercanica().addFocusListener(actionComboMercancia);
-//		getComboBoxMercanica().addActionListener(actionComboMercancia);
+		// RUTA
+		ActionComboMercancias actionComboMercancia = new ActionComboMercancias(getComboBoxMercanica(),
+				getComboBoxConductorUno(), getComboBoxConductorCinco(), getChBoxUno(), getChBoxDos(), facade, controlPanelRuta, getPanelRuta());
+		getComboBoxMercanica().addFocusListener(actionComboMercancia);
+		getComboBoxMercanica().addActionListener(actionComboMercancia);
+		for (Mercancia d : Mercancia.values()) {
+			getComboBoxMercanica().addItem(d);
+		}
+		HashMap<Long, String> mapa = facade.obtnerMapaEnGaraje();
+		for (Map.Entry<Long, String> entry : mapa.entrySet()) {
+			getComboBoxCamion().addItem(new Item(entry.getKey(), entry.getValue()));
+		}
 	}
 
 }
