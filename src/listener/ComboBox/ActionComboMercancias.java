@@ -18,14 +18,14 @@ import vistas.comunes.PanelRuta;
 
 public class ActionComboMercancias implements FocusListener, ActionListener {
 
-	private JComboBox mercancia, conductorUno, conductorCinco;
+	private JComboBox mercancia, conductorUno, conductorCinco, camion;
 	private Facade facade;
 	private PanelRuta panel;
 	private ControladorPanelRuta controlador;
 	private JCheckBox chUno, chDos;
 
 	public ActionComboMercancias(JComboBox mercancia, JComboBox conductorUno, JComboBox conductorCinco, JCheckBox chUno,
-			JCheckBox chDos, Facade facade, ControladorPanelRuta controlador, PanelRuta panel) {
+			JCheckBox chDos, JComboBox camion, Facade facade, ControladorPanelRuta controlador, PanelRuta panel) {
 		this.mercancia = mercancia;
 		this.conductorUno = conductorUno;
 		this.conductorCinco = conductorCinco;
@@ -34,6 +34,7 @@ public class ActionComboMercancias implements FocusListener, ActionListener {
 		this.facade = facade;
 		this.panel = panel;
 		this.controlador = controlador;
+		this.camion = camion;
 	}
 
 	@Override
@@ -129,6 +130,11 @@ public class ActionComboMercancias implements FocusListener, ActionListener {
 				break;
 			}
 
+		}
+		camion.removeAllItems();
+		HashMap<Long, String> mapa = facade.obtnerMapaEnGaraje();
+		for (Map.Entry<Long, String> entry : mapa.entrySet()) {
+			camion.addItem(new Item(entry.getKey(), entry.getValue()));
 		}
 	}
 

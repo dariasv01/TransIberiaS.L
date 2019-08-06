@@ -2,20 +2,22 @@ package modelo.dto;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import utiles.Mercancia;
 
 public class RutaDTO implements Serializable {
 	private Mercancia mercancia;
 	private Long camionId;
-	private Date fecha;
+	private LocalDateTime fecha;
 	private float km;
 	private Long ID;
 
 	public RutaDTO() {
 	}
 
-	public RutaDTO(Mercancia mercancia, Long camionId, Date fecha, float km, Long ID) {
+	public RutaDTO(Mercancia mercancia, Long camionId, LocalDateTime fecha, float km, Long ID) {
 		this.mercancia = mercancia;
 		this.camionId = camionId;
 		this.fecha = fecha;
@@ -47,11 +49,11 @@ public class RutaDTO implements Serializable {
 		this.camionId = camionId;
 	}
 
-	public Date getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 

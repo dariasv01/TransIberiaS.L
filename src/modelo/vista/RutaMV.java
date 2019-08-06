@@ -1,6 +1,7 @@
 package modelo.vista;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import modelo.dto.CamionDTO;
 import modelo.dto.ConductorDTO;
@@ -10,7 +11,7 @@ import utiles.Mercancia;
 public class RutaMV {
 	private Mercancia mercancia;
 	private Long camionId;
-	private Date fecha;
+	private LocalDateTime fecha;
 	private float km;
 	private float kmRecorrido;
 	private EstadoRuta estado;
@@ -20,7 +21,7 @@ public class RutaMV {
 	public RutaMV(){
 	}
 	
-	public  RutaMV(Mercancia mercancia, Long camionId, Date fecha, float km, float kmRecorrido,
+	public  RutaMV(Mercancia mercancia, Long camionId, LocalDateTime fecha, float km, float kmRecorrido,
 			EstadoRuta estado, Long conductorUno, Long conductorDos, Long ID) {
 		this.mercancia=mercancia;
 		this.camionId=camionId;
@@ -58,11 +59,11 @@ public class RutaMV {
 		this.camionId = camionId;
 	}
 
-	public Date getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 

@@ -46,5 +46,11 @@ public class DAOColecciones<T> {
 		return accesoFichero.override(lista);
 	}
 	
+	public boolean delete(T element) {
+		T elementOriginal=findById(element);
+		lista.remove(elementOriginal);
+		return accesoFichero.override(lista);
+	}
+	
 }
 

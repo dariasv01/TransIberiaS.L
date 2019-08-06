@@ -1,6 +1,7 @@
 package modelo.dto;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import utiles.EstadoRuta;
 import utiles.Mercancia;
@@ -14,7 +15,7 @@ public class RutaActivaDTO extends RutaDTO {
 
 	}
 
-	public RutaActivaDTO(Mercancia mercancia, Long camionId, Date fecha, float km, float kmRecorrido, EstadoRuta estado,
+	public RutaActivaDTO(Mercancia mercancia, Long camionId, LocalDateTime fecha, float km, float kmRecorrido, EstadoRuta estado,
 			Long conductorUno, Long conductorDos, Long ID) {
 		super(mercancia, camionId, fecha, km, ID);
 		this.kmRecorrido = kmRecorrido;

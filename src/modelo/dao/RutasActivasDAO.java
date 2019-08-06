@@ -34,6 +34,10 @@ public class RutasActivasDAO {
 	public boolean modificar(RutaActivaDTO ruta) {
 		return acceso.modify(ruta);
 	}
+	
+	public boolean eliminar(RutaActivaDTO ruta) {
+		return acceso.delete(ruta);
+	}
 
 	public ArrayList<String> obtenerTodosIds() {
 		ArrayList<String> lista = new ArrayList<>();

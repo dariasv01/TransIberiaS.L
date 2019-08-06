@@ -1,5 +1,6 @@
 package control.nucleo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,13 +18,13 @@ private RutasActivasDAO dao= new RutasActivasDAO();
 	public RutaActivaNucleo() {
 	}
 	
-	public boolean nuevaRuta(RutaMV ruta) {
+	public boolean nuevaRuta(RutaMV ruta, LocalDateTime fecha) {
 		RutaActivaDTO rutaDTO= new RutaActivaDTO();
 		ConductorNucleo conductor =new ConductorNucleo();
 		CamionNucleo camion =new CamionNucleo();
 		rutaDTO.setMercancia(ruta.getMercancia());
 		rutaDTO.setCamionId(ruta.getCamionId());
-		rutaDTO.setFecha(ruta.getFecha());
+		rutaDTO.setFecha(fecha);
 		rutaDTO.setKm(ruta.getKm());
 		rutaDTO.setKmRecorrido(ruta.getKmRecorrido());
 		rutaDTO.setConductorUno(ruta.getConductorUno());
@@ -43,21 +44,26 @@ private RutasActivasDAO dao= new RutasActivasDAO();
 		
 	}
 	
-//	public boolean modificarConductor(ConductorMV conductor) {
-//		ConductorDTO conductorDTO= dao.consultar(conductor.getID());
-//		conductorDTO.setNombre(conductor.getNombre());
-//		conductorDTO.setDireccion(conductor.getDireccion());
-//		conductorDTO.setTelefono(conductor.getTelefono());
-//		if (validacionConductor(conductor)) {
-//			return  dao.modificar(conductorDTO); 
-//		}
-//		return false;
-//		
-//	}
-//	public boolean bajaConductor(RutaMV ruta) {
-//		RutaActivaDTO rutaDTO= (RutaActivaDTO) dao.consultar(ruta.getID());
-//		return  dao.eliminar(rutaDTO);
-//	}
+	public boolean modificarConductor(RutaMV ruta) {
+		RutaActivaDTO rutaDTO= dao.consultar(ruta.getID());
+		rutaDTO.setMercancia(ruta.getMercancia());
+		rutaDTO.setCamionId(ruta.getCamionId());
+		rutaDTO.setFecha(ruta.getFecha());
+		rutaDTO.setKm(ruta.getKm());
+		rutaDTO.setKmRecorrido(ruta.getKmRecorrido());
+		rutaDTO.setConductorUno(ruta.getConductorUno());
+		rutaDTO.setConductorDos(ruta.getConductorDos());
+		rutaDTO.setEstado((EstadoRuta) EstadoRuta.Ruta);
+		if (dao.modificar(rutaDTO)) {
+			return  true; 
+		}
+		return false;
+		
+	}
+	public boolean eliminarRuta(RutaMV ruta) {
+		RutaActivaDTO rutaDTO= (RutaActivaDTO) dao.consultar(ruta.getID());
+		return  dao.eliminar(rutaDTO);
+	}
 	
 	public RutaMV obtenerRuta(String id) {
 		RutaMV modelo=new RutaMV();
@@ -77,4 +83,5 @@ private RutasActivasDAO dao= new RutasActivasDAO();
 	public ArrayList<String> listadoIdRuta() {
 		return dao.obtenerTodosIds();
 	}
+
 }

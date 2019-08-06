@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.spi.LocaleServiceProvider;
@@ -49,8 +50,10 @@ import vistas.conductor.PanelDespedir;
 import vistas.ruta.PanelHistorialRuta;
 import vistas.ruta.PanelNuevaRuta;
 import vistas.ruta.PanelRutaActiva;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-public class UI extends JFrame {
+public class UI extends JFrame{
 
 	private JPanel contentPane;
 	protected PanelInicio inicio = new PanelInicio();
@@ -73,6 +76,8 @@ public class UI extends JFrame {
 	protected JMenuItem menuItemHistorialCamion;
 
 	public UI() {
+		
+		
 		setTitle("Trans Iberia S.L.");
 		setMaximumSize(new Dimension(2047483647, 2047483647));
 
@@ -270,10 +275,6 @@ public class UI extends JFrame {
 		menuBar.add(hora);
 		hora.setColumns(10);
 
-		Date sistFecha = new Date();
-		SimpleDateFormat formato = new SimpleDateFormat(" dd / MM / YYYY ");
-		fecha.setText(formato.format(sistFecha));
-
 		JPanel panel = new JPanel();
 		menuBar.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
@@ -284,9 +285,7 @@ public class UI extends JFrame {
 		panel.add(btnPasar, BorderLayout.CENTER);
 		btnPasar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnPasar.setBackground(new Color(165, 42, 42));
-		// HORA
-		Timer tiempo = new Timer(100, new UI.horas());
-		tiempo.start();
+		
 
 	}
 
@@ -294,17 +293,9 @@ public class UI extends JFrame {
 		((CardLayout) contentPane.getLayout()).show(contentPane, string);
 	}
 
-	class horas implements ActionListener {
 
-		public void actionPerformed(ActionEvent e) {
-			Date sistHora = new Date();
-			String pmAm = "hh:mm:ss a";
-			SimpleDateFormat format = new SimpleDateFormat(pmAm);
-			Calendar hoy = Calendar.getInstance();
-			hora.setText(String.format(format.format(sistHora), hoy));
+		
 
-		}
-	}
 
 	// Camion
 
@@ -368,7 +359,7 @@ public class UI extends JFrame {
 	public JComboBox getComboBoxCamion() {
 		return ruta.getComboCamion();
 	}
-	
+
 	public JCheckBox getChBoxUno() {
 		return ruta.getChBoxUno();
 	}

@@ -1,41 +1,49 @@
 package vista.controlador;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
+import control.logica.Control;
 import facade.Facade;
 import modelo.vista.CamionMV;
 import modelo.vista.ConductorMV;
 import modelo.vista.RutaMV;
+import utiles.EstadoCamion;
+import utiles.EstadoConductor;
 import vistas.ruta.PanelRutaActiva;
 
-public class ControladorPanelRutasActivas {
+public class ControladorPanelRutasActivas implements ActionListener {
 
 	private Facade facade = new Facade();
-
+	private Control control = new Control();
+	private String[][] data;
+	private String matricula,fecha,km,kmRecorrido,conductorNombre,estado,mercancia;
 	public void rellenarTablaRutasActivas(PanelRutaActiva panel) {
 		String nombresColumnas[] = { "Mercancia", "Camión", "Fecha", "KM", "KM recorridos", "Estado", "Conductor" };
-		String[][] data = new String[facade.listadoIdRutaActiva().size()][7];
+		data = new String[facade.listadoIdRutaActiva().size()][7];
 		for (int i = 0; i < facade.listadoIdRutaActiva().size(); i++) {
 			RutaMV ruta = facade.obtenerRutaActiva(toString().valueOf(i + 1));
 			CamionMV camion = facade.obtenerCamion(ruta.getCamionId().toString());
 			ConductorMV conductor = facade.obtenerConductor(ruta.getConductorUno().toString());
-			String matricula = camion.getMatricula();
-			String fecha = toString().valueOf(ruta.getFecha());
-			String km = toString().valueOf(ruta.getKm());
-			String kmRecorrido = toString().valueOf(ruta.getKmRecorrido());
+			matricula = camion.getMatricula();
+			fecha = toString().valueOf(ruta.getFecha().toLocalDate());
+			km = toString().valueOf(ruta.getKm());
+			kmRecorrido = toString().valueOf(ruta.getKmRecorrido());
 
-			String conductorNombre = conductor.getNombre();
+			conductorNombre = conductor.getNombre();
 
-			String estado = "";
+			estado = "";
 
 			if (null != ruta.getEstado()) {
 				estado = ruta.getEstado().toString();
 			}
 
-			String mercancia = "";
+			mercancia = "";
 
 			if (null != ruta.getMercancia()) {
 				mercancia = ruta.getMercancia().toString();
@@ -53,7 +61,29 @@ public class ControladorPanelRutasActivas {
 
 		DefaultTableModel defaultTableModel = new DefaultTableModel(data, nombresColumnas);
 		panel.getTable().setModel(defaultTableModel);
+		Timer tiempo = new Timer(1000, this);
+		tiempo.start();
+	}
 
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		for (int i = 0; i < facade.listadoIdRutaActiva().size(); i++) {
+			RutaMV ruta = facade.obtenerRutaActiva(toString().valueOf(i + 1));
+			CamionMV camion = facade.obtenerCamion(ruta.getCamionId().toString());
+			ConductorMV conductor = facade.obtenerConductor(ruta.getConductorUno().toString());
+			ruta.setKmRecorrido(control.recorrerDistancia(ruta.getFecha()));
+			facade.modificarRuta(ruta);
+			kmRecorrido = toString().valueOf(ruta.getKmRecorrido());
+			data[i][4] = kmRecorrido;
+			if (control.rutaFinalizada(ruta.getKm(), ruta.getKmRecorrido())) {
+				facade.guardarRutaHistorial(ruta);
+				facade.eliminarRutaActiva(ruta);
+				facade.modificarCamion(camion.getID(),EstadoCamion.Garaje);
+				facade.modificarConductor(conductor.getID(),EstadoConductor.Parado);
+			}
+		}
 	}
 
 }
