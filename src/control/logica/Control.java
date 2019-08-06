@@ -31,9 +31,6 @@ public class Control {
 
 		segundosTotales = seconds + 60 *minutes + hours * 3600;
 		
-		System.out.println(fechaAntigua);
-		System.out.println(segundosTotales);
-		System.out.println("Fecha"+fechaActual);
 		return kmSegundo * segundosTotales;
 	}
 

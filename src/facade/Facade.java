@@ -119,7 +119,7 @@ public class Facade {
 	}
 	
 	public boolean modificarRuta(RutaMV rutaMV) {
-		return rutaActivaNucleo.modificarConductor(rutaMV);
+		return rutaActivaNucleo.modificarRuta(rutaMV);
 	}
 
 	public RutaMV obtenerRutaHistorial(String id) {

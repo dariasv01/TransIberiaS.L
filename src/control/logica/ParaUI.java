@@ -77,7 +77,6 @@ public class ParaUI extends UI implements ActionListener {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				System.out.println(fechaActual);
 				if (primeraVez) {
 					facade.guardarHoraAplicacion(fechaActual);
 				} else {
@@ -196,9 +195,9 @@ public class ParaUI extends UI implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		fechaActual = fechaActual.plusSeconds(+1);
-		facade.guardarHoraAplicacion(fechaActual);
 		hora.setText(fechaActual.toLocalTime().toString());
 		fecha.setText(fechaActual.toLocalDate().toString());
+		facade.modificarHoraAplicacion(fechaActual);
 	}
 
 }

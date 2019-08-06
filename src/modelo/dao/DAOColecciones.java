@@ -31,7 +31,7 @@ public class DAOColecciones<T> {
 	}
 	
 	public T findById(T idElement) {
-		for(T element:lista) {
+		for(T element:getAll()) {
 			if(element.equals(idElement)) {
 				return element;
 			}

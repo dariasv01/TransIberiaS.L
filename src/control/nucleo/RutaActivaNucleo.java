@@ -44,7 +44,7 @@ private RutasActivasDAO dao= new RutasActivasDAO();
 		
 	}
 	
-	public boolean modificarConductor(RutaMV ruta) {
+	public boolean modificarRuta(RutaMV ruta) {
 		RutaActivaDTO rutaDTO= dao.consultar(ruta.getID());
 		rutaDTO.setMercancia(ruta.getMercancia());
 		rutaDTO.setCamionId(ruta.getCamionId());

@@ -23,6 +23,7 @@ public class ControladorPanelRutasActivas implements ActionListener {
 	private Control control = new Control();
 	private String[][] data;
 	private String matricula,fecha,km,kmRecorrido,conductorNombre,estado,mercancia;
+	private PanelRutaActiva panel;
 	public void rellenarTablaRutasActivas(PanelRutaActiva panel) {
 		String nombresColumnas[] = { "Mercancia", "Camión", "Fecha", "KM", "KM recorridos", "Estado", "Conductor" };
 		data = new String[facade.listadoIdRutaActiva().size()][7];
@@ -69,19 +70,27 @@ public class ControladorPanelRutasActivas implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		ConductorMV conductorDos = null;
 		for (int i = 0; i < facade.listadoIdRutaActiva().size(); i++) {
 			RutaMV ruta = facade.obtenerRutaActiva(toString().valueOf(i + 1));
 			CamionMV camion = facade.obtenerCamion(ruta.getCamionId().toString());
 			ConductorMV conductor = facade.obtenerConductor(ruta.getConductorUno().toString());
+			if (null != ruta.getConductorDos()) {
+				conductorDos = facade.obtenerConductor(ruta.getConductorDos().toString());
+			}
 			ruta.setKmRecorrido(control.recorrerDistancia(ruta.getFecha()));
+			kmRecorrido = toString().valueOf(control.recorrerDistancia(ruta.getFecha()));
 			facade.modificarRuta(ruta);
-			kmRecorrido = toString().valueOf(ruta.getKmRecorrido());
 			data[i][4] = kmRecorrido;
 			if (control.rutaFinalizada(ruta.getKm(), ruta.getKmRecorrido())) {
 				facade.guardarRutaHistorial(ruta);
 				facade.eliminarRutaActiva(ruta);
-				facade.modificarCamion(camion.getID(),EstadoCamion.Garaje);
-				facade.modificarConductor(conductor.getID(),EstadoConductor.Parado);
+				facade.modificarCamion(camion.getID(), EstadoCamion.Garaje);
+				facade.modificarConductor(conductor.getID(), EstadoConductor.Parado);
+				if (null != ruta.getConductorDos()) {
+					facade.modificarConductor(conductorDos.getID(), EstadoConductor.Parado);
+				}
+				
 			}
 		}
 	}
