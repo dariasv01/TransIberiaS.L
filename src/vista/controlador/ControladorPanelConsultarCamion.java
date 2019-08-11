@@ -11,9 +11,8 @@ import vistas.camion.PanelConsultaCamion;
 
 public class ControladorPanelConsultarCamion {
 
-	private Facade facade = new Facade();
 
-	public void rellenarTablaCamion(PanelConsultaCamion panel) {
+	public void rellenarTablaCamion(PanelConsultaCamion panel, Facade facade) {
 		String nombresColumnas[] = { "Matricula", "Marca", "Potncia", "Estado" };
 		String[][] data = new String[facade.listadoIdCamiones().size()][4];
 		for (int i = 0; i < facade.listadoIdCamiones().size(); i++) {

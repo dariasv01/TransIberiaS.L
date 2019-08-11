@@ -11,29 +11,66 @@ import utiles.Mercancia;
 public class RutaMV {
 	private Mercancia mercancia;
 	private Long camionId;
-	private LocalDateTime fecha;
 	private float km;
-	private float kmRecorrido;
+	private float kmRecorrido, kmRecorridoDescanso;
 	private EstadoRuta estado;
 	private Long conductorUno, conductorDos;
 	private Long ID;
-	
-	public RutaMV(){
+	private LocalDateTime fechaTurno, fechaDescanso, fecha;
+	private boolean cambioTurno;
+
+	public RutaMV() {
 	}
-	
-	public  RutaMV(Mercancia mercancia, Long camionId, LocalDateTime fecha, float km, float kmRecorrido,
-			EstadoRuta estado, Long conductorUno, Long conductorDos, Long ID) {
-		this.mercancia=mercancia;
-		this.camionId=camionId;
-		this.fecha=fecha;
-		this.km=km;
+
+	public RutaMV(Mercancia mercancia, Long camionId, LocalDateTime fecha, float km, float kmRecorrido,
+			EstadoRuta estado, Long conductorUno, Long conductorDos, Long ID, boolean cambioTurno,
+			LocalDateTime fechaTurno, LocalDateTime fechaDescanso, float kmRecorridoDescanso) {
+		this.mercancia = mercancia;
+		this.camionId = camionId;
+		this.fecha = fecha;
+		this.km = km;
 		this.kmRecorrido = kmRecorrido;
 		this.estado = estado;
 		this.conductorUno = conductorUno;
 		this.conductorDos = conductorDos;
 		this.ID = ID;
+		this.cambioTurno = cambioTurno;
+		this.fechaTurno = fechaTurno;
+		this.fechaDescanso = fechaDescanso;
+		this.kmRecorridoDescanso = kmRecorridoDescanso;
 	}
-	
+
+	public float getKmRecorridoDescanso() {
+		return kmRecorridoDescanso;
+	}
+
+	public void setKmRecorridoDescanso(float kmRecorridoDescanso) {
+		this.kmRecorridoDescanso = kmRecorridoDescanso;
+	}
+
+	public LocalDateTime getFechaDescanso() {
+		return fechaDescanso;
+	}
+
+	public void setFechaDescanso(LocalDateTime fechaDescanso) {
+		this.fechaDescanso = fechaDescanso;
+	}
+
+	public LocalDateTime getFechaTurno() {
+		return fechaTurno;
+	}
+
+	public void setFechaTurno(LocalDateTime fechaTurno) {
+		this.fechaTurno = fechaTurno;
+	}
+
+	public boolean isCambioTurno() {
+		return cambioTurno;
+	}
+
+	public void setCambioTurno(boolean cambioTurno) {
+		this.cambioTurno = cambioTurno;
+	}
 
 	public Long getID() {
 		return ID;
@@ -107,7 +144,4 @@ public class RutaMV {
 		this.conductorDos = conductorDos;
 	}
 
-	
-	
-	
 }

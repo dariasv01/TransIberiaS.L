@@ -29,7 +29,10 @@ private RutasActivasDAO dao= new RutasActivasDAO();
 		rutaDTO.setKmRecorrido(ruta.getKmRecorrido());
 		rutaDTO.setConductorUno(ruta.getConductorUno());
 		rutaDTO.setConductorDos(ruta.getConductorDos());
+		rutaDTO.setFechaTurno(fecha);
+		rutaDTO.setFechaDescanso(null);
 		rutaDTO.setEstado((EstadoRuta) EstadoRuta.Ruta);
+		rutaDTO.setKmRecorridoDescanso(0);
 		Long IDruta =dao.obtenerId();
 		rutaDTO.setID(IDruta);
 		conductor.modificarConductor(ruta.getConductorUno().toString(), EstadoConductor.Ruta);
@@ -53,7 +56,11 @@ private RutasActivasDAO dao= new RutasActivasDAO();
 		rutaDTO.setKmRecorrido(ruta.getKmRecorrido());
 		rutaDTO.setConductorUno(ruta.getConductorUno());
 		rutaDTO.setConductorDos(ruta.getConductorDos());
-		rutaDTO.setEstado((EstadoRuta) EstadoRuta.Ruta);
+		rutaDTO.setEstado(ruta.getEstado());
+		rutaDTO.setCambioTurno(ruta.isCambioTurno());
+		rutaDTO.setFechaDescanso(ruta.getFechaDescanso());
+		rutaDTO.setFechaTurno(ruta.getFechaTurno());
+		rutaDTO.setKmRecorridoDescanso(ruta.getKmRecorridoDescanso());
 		if (dao.modificar(rutaDTO)) {
 			return  true; 
 		}
@@ -69,6 +76,7 @@ private RutasActivasDAO dao= new RutasActivasDAO();
 		RutaMV modelo=new RutaMV();
 		RutaActivaDTO ruta=(RutaActivaDTO) dao.consultar(new Long(id));
 		modelo.setID(ruta.getID());
+		modelo.setKmRecorridoDescanso(ruta.getKmRecorridoDescanso());
 		modelo.setCamionId(ruta.getCamionId());
 		modelo.setConductorUno(ruta.getConductorUno());
 		modelo.setConductorDos(ruta.getConductorDos());
@@ -77,6 +85,9 @@ private RutasActivasDAO dao= new RutasActivasDAO();
 		modelo.setKmRecorrido(ruta.getKmRecorrido());
 		modelo.setMercancia(ruta.getMercancia());
 		modelo.setEstado(ruta.getEstado());
+		modelo.setFechaDescanso(ruta.getFechaDescanso());
+		modelo.setFechaTurno(ruta.getFechaTurno());
+		modelo.setCambioTurno(ruta.isCambioTurno());
 		return modelo;
 	}
 

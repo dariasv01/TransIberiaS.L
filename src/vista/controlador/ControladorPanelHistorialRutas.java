@@ -12,9 +12,8 @@ import vistas.ruta.PanelHistorialRuta;
 
 public class ControladorPanelHistorialRutas {
 
-	private Facade facade = new Facade();
 
-	public void rellenarTablaHistorialRutas(PanelHistorialRuta panel) {
+	public void rellenarTablaHistorialRutas(PanelHistorialRuta panel, Facade facade) {
 		String nombresColumnas[] = { "Mercancia", "Camión", "Fecha", "KM" };
 		String[][] data = new String[facade.listadoIdRutaHistorial().size()][4];
 		for (int i = 0; i < facade.listadoIdRutaHistorial().size(); i++) {

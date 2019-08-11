@@ -1,5 +1,6 @@
 package control.logica;
 
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -19,8 +20,12 @@ import modelo.dto.HoraDTO;
 import utiles.Mercancia;
 import vista.controlador.ControladorDatosPersonales;
 import vista.controlador.ControladorMensaje;
+import vista.controlador.ControladorPanelConsultarCamion;
+import vista.controlador.ControladorPanelConsultarConductor;
+import vista.controlador.ControladorPanelHistorialRutas;
 import vista.controlador.ControladorPanelMatricula;
 import vista.controlador.ControladorPanelRuta;
+import vista.controlador.ControladorPanelRutasActivas;
 import vistaUI.UI;
 import vistas.ruta.PanelRutaActiva;
 
@@ -31,6 +36,10 @@ public class ParaUI extends UI implements ActionListener {
 	private ControladorMensaje controladorMensaje = new ControladorMensaje();
 	private ControladorDatosPersonales controlDatosPersonales = new ControladorDatosPersonales();
 	private ControladorPanelRuta controlPanelRuta = new ControladorPanelRuta();
+	private ControladorPanelConsultarCamion controladorPanelConsultaCamion = new ControladorPanelConsultarCamion();
+	private ControladorPanelConsultarConductor controladorPanelConsultaConduc = new ControladorPanelConsultarConductor();
+	private ControladorPanelRutasActivas controladorPanelRutasActivas = new ControladorPanelRutasActivas();
+	private ControladorPanelHistorialRutas controladorPanelHistorialRuta = new ControladorPanelHistorialRutas();
 	LocalDateTime fechaActual;
 	LocalDateTime fechaSistemaAntigua;
 	boolean primeraVez;
@@ -72,6 +81,7 @@ public class ParaUI extends UI implements ActionListener {
 				}
 			}
 		});
+		paneles();
 		rellenarComboBox();
 		setActionListener();
 		addWindowListener(new WindowAdapter() {
@@ -87,6 +97,60 @@ public class ParaUI extends UI implements ActionListener {
 		// HORA
 		Timer tiempo = new Timer(1000, this);
 		tiempo.start();
+	}
+
+private void paneles() {
+		//CONDUCTOR
+	mntmContratar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			asociarPanel("PanelContratar");
+		}
+	});
+	mntmDespedir.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			asociarPanel("PanelDespedir");
+		}
+	});
+	mntmConsultasConductor.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			controladorPanelConsultaConduc.rellenarTablaConductor(consultaConduc, facade);
+			asociarPanel("PanelConsultaConductor");
+		}
+	});
+	mntmComprar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			asociarPanel("PanelComprar");
+		}
+	});
+	mntmVender.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			asociarPanel("PanelVender");
+		}
+	});
+	menuItemHistorialCamion.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			controladorPanelConsultaCamion.rellenarTablaCamion(consultaCamion,facade);
+			asociarPanel("PanelConsultaCamion");
+		}
+	});
+	mntmCrearRuta.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			asociarPanel("PanelNuevaRuta");
+		}
+	});
+	mntmRutasActivas.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			controladorPanelRutasActivas.rellenarTablaRutasActivas(rutaActiva,facade);
+			asociarPanel("PanelRutaActiva");
+		}
+	});
+	mntmHistorialRutas.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			controladorPanelHistorialRuta.rellenarTablaHistorialRutas(historialRuta,facade);
+			asociarPanel("PanelHistorialRuta");
+		}
+	});
+		
 	}
 
 //CAMION
@@ -191,6 +255,11 @@ public class ParaUI extends UI implements ActionListener {
 		}
 
 	}
+	
+
+	private void asociarPanel(String string) {
+		((CardLayout) contentPane.getLayout()).show(contentPane, string);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -198,6 +267,7 @@ public class ParaUI extends UI implements ActionListener {
 		hora.setText(fechaActual.toLocalTime().toString());
 		fecha.setText(fechaActual.toLocalDate().toString());
 		facade.modificarHoraAplicacion(fechaActual);
+		paneles();
 	}
 
 }

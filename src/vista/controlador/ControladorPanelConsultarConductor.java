@@ -12,9 +12,8 @@ import vistas.conductor.PanelConsultaConductor;
 
 public class ControladorPanelConsultarConductor {
 
-	private Facade facade = new Facade();
 
-	public void rellenarTablaCamion(PanelConsultaConductor panel) {
+	public void rellenarTablaConductor(PanelConsultaConductor panel, Facade facade) {
 		String nombresColumnas[] = { "Nombre", "Dirección", "Telefono", "Habilidad", "Estado" };
 		String[][] data = new String[facade.listadoIdConductores().size()][5];
 		ArrayList<String> idConductor = new ArrayList<>(facade.listadoIdConductores());

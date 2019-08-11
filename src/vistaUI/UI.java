@@ -55,7 +55,7 @@ import java.awt.event.WindowEvent;
 
 public class UI extends JFrame{
 
-	private JPanel contentPane;
+	protected JPanel contentPane;
 	protected PanelInicio inicio = new PanelInicio();
 	protected JTextField fecha;
 	protected JTextField hora;
@@ -69,11 +69,17 @@ public class UI extends JFrame{
 	protected PanelNuevaRuta ruta = new PanelNuevaRuta("NUEVA RUTA");
 	protected PanelRutaActiva rutaActiva = new PanelRutaActiva("RUTAS ACTIVAS");
 	protected PanelHistorialRuta historialRuta = new PanelHistorialRuta("HISTORIAL RUTAS");
-	private ControladorPanelConsultarCamion controladorPanelConsultaCamion = new ControladorPanelConsultarCamion();
-	private ControladorPanelConsultarConductor controladorPanelConsultaConduc = new ControladorPanelConsultarConductor();
-	private ControladorPanelRutasActivas controladorPanelRutasActivas = new ControladorPanelRutasActivas();
-	private ControladorPanelHistorialRutas controladorPanelHistorialRuta = new ControladorPanelHistorialRutas();
 	protected JMenuItem menuItemHistorialCamion;
+	protected JMenuItem mntmContratar;
+	protected JMenuItem mntmDespedir;
+	protected JMenuItem mntmConsultasConductor;
+	protected JMenuItem mnCamiones;
+	protected JMenuItem mntmComprar;
+	protected JMenuItem mntmVender;
+	protected JMenuItem mnRutas;
+	protected JMenuItem mntmRutasActivas;
+	protected JMenuItem mntmHistorialRutas;
+	protected JMenuItem mntmCrearRuta;
 
 	public UI() {
 		
@@ -116,11 +122,11 @@ public class UI extends JFrame{
 		contentPane.add(panelinicio, "name_969325539976868");
 		panelinicio.setLayout(new CardLayout(0, 0));
 
-		JLabel lblClinicaEpyGay = new JLabel("TRASPORTES IBERIA");
-		lblClinicaEpyGay.setBackground(new Color(204, 204, 51));
-		lblClinicaEpyGay.setFont(new Font("Tahoma", Font.BOLD, 41));
-		lblClinicaEpyGay.setHorizontalAlignment(SwingConstants.CENTER);
-		panelinicio.add(lblClinicaEpyGay, "inicio");
+		JLabel lblTransIberia = new JLabel("TRASPORTES IBERIA");
+		lblTransIberia.setBackground(new Color(204, 204, 51));
+		lblTransIberia.setFont(new Font("Tahoma", Font.BOLD, 41));
+		lblTransIberia.setHorizontalAlignment(SwingConstants.CENTER);
+		panelinicio.add(lblTransIberia, "inicio");
 
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBorder(new LineBorder(new Color(0, 0, 0), 0));
@@ -135,43 +141,27 @@ public class UI extends JFrame{
 		mnConductor.setFont(new Font("Alef", Font.PLAIN, 32));
 		menuBar.add(mnConductor);
 //CONTRATAR
-		JMenuItem mntmContratar = new JMenuItem("Contratar");
-		mntmContratar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				asociarPanel("PanelContratar");
-			}
-		});
+		mntmContratar = new JMenuItem("Contratar");
 		mntmContratar.setHorizontalAlignment(SwingConstants.CENTER);
 		mntmContratar.setFont(new Font("Alef", Font.BOLD, 20));
 		mntmContratar.setBackground(new Color(204, 102, 102));
 		mnConductor.add(mntmContratar);
 //DESPEDIR
 
-		JMenuItem mntmDespedir = new JMenuItem("Despedir");
-		mntmDespedir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				asociarPanel("PanelDespedir");
-			}
-		});
+		mntmDespedir = new JMenuItem("Despedir");
 		mntmDespedir.setHorizontalAlignment(SwingConstants.CENTER);
 		mntmDespedir.setFont(new Font("Alef", Font.BOLD, 20));
 		mntmDespedir.setBackground(new Color(204, 102, 102));
 		mnConductor.add(mntmDespedir);
 
 //CONSULTAR CONDUCTORES
-		JMenuItem mntmConsultasConductor = new JMenuItem("Lista Empleados");
-		mntmConsultasConductor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controladorPanelConsultaConduc.rellenarTablaCamion(consultaConduc);
-				asociarPanel("PanelConsultaConductor");
-			}
-		});
+		mntmConsultasConductor = new JMenuItem("Lista Empleados");
 		mntmConsultasConductor.setHorizontalAlignment(SwingConstants.CENTER);
 		mntmConsultasConductor.setFont(new Font("Alef", Font.BOLD, 20));
 		mntmConsultasConductor.setBackground(new Color(204, 102, 102));
 		mnConductor.add(mntmConsultasConductor);
 
-		JMenu mnCamiones = new JMenu("   Cami\u00F3n   ");
+		mnCamiones = new JMenu("   Cami\u00F3n   ");
 		mnCamiones.setBorder(new MatteBorder(1, 1, 1, 0, (Color) new Color(0, 0, 0)));
 
 		mnCamiones.setBackground(new Color(139, 0, 139));
@@ -179,77 +169,44 @@ public class UI extends JFrame{
 		mnCamiones.setFont(new Font("Alef", Font.PLAIN, 32));
 		menuBar.add(mnCamiones);
 //COMPRAR CAMION
-		JMenuItem mntmComprar = new JMenuItem("Comprar");
-		mntmComprar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				asociarPanel("PanelComprar");
-			}
-		});
+		mntmComprar = new JMenuItem("Comprar");
 		mntmComprar.setHorizontalAlignment(SwingConstants.CENTER);
 		mntmComprar.setBackground(new Color(102, 102, 255));
 		mntmComprar.setFont(new Font("Alef", Font.BOLD, 22));
 		mnCamiones.add(mntmComprar);
 //VENDER CAMION
-		JMenuItem mntmVender = new JMenuItem("Vender");
-		mntmVender.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				asociarPanel("PanelVender");
-			}
-		});
+		mntmVender = new JMenuItem("Vender");
 		mntmVender.setHorizontalAlignment(SwingConstants.CENTER);
 		mntmVender.setBackground(new Color(102, 102, 255));
 		mntmVender.setFont(new Font("Alef", Font.BOLD, 22));
 		mnCamiones.add(mntmVender);
 //CONSULTA CAMION		
 		menuItemHistorialCamion = new JMenuItem("Historial de Camiones");
-		menuItemHistorialCamion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				controladorPanelConsultaCamion.rellenarTablaCamion(consultaCamion);
-				asociarPanel("PanelConsultaCamion");
-			}
-		});
 		menuItemHistorialCamion.setHorizontalAlignment(SwingConstants.CENTER);
 		menuItemHistorialCamion.setFont(new Font("Alef", Font.BOLD, 22));
 		menuItemHistorialCamion.setBackground(new Color(102, 102, 255));
 		mnCamiones.add(menuItemHistorialCamion);
 //RUTAS
 
-		JMenu mnRutas = new JMenu("   Rutas   ");
+		mnRutas = new JMenu("   Rutas   ");
 		mnRutas.setBorder(new MatteBorder(1, 1, 1, 0, (Color) new Color(0, 0, 0)));
 		mnRutas.setBackground(new Color(139, 69, 19));
 		mnRutas.setFont(new Font("Alef", Font.PLAIN, 32));
 		menuBar.add(mnRutas);
 //NUEVA RUTA
-		JMenuItem mntmCrearRuta = new JMenuItem("Nueva Ruta");
-		mntmCrearRuta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				asociarPanel("PanelNuevaRuta");
-			}
-		});
+		mntmCrearRuta = new JMenuItem("Nueva Ruta");
 		mntmCrearRuta.setHorizontalAlignment(SwingConstants.CENTER);
 		mntmCrearRuta.setBackground(new Color(255, 204, 153));
 		mntmCrearRuta.setFont(new Font("Alef", Font.BOLD, 22));
 		mnRutas.add(mntmCrearRuta);
 //RUTA ACTIVAS		
-		JMenuItem mntmRutasActivas = new JMenuItem("Rutas Activas");
-		mntmRutasActivas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controladorPanelRutasActivas.rellenarTablaRutasActivas(rutaActiva);
-				asociarPanel("PanelRutaActiva");
-			}
-		});
+		mntmRutasActivas = new JMenuItem("Rutas Activas");
 		mntmRutasActivas.setHorizontalAlignment(SwingConstants.CENTER);
 		mntmRutasActivas.setFont(new Font("Dialog", Font.BOLD, 22));
 		mntmRutasActivas.setBackground(new Color(255, 204, 153));
 		mnRutas.add(mntmRutasActivas);
 //HISTORIAL RUTA		
-		JMenuItem mntmHistorialRutas = new JMenuItem("Historial de Rutas");
-		mntmHistorialRutas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controladorPanelHistorialRuta.rellenarTablaHistorialRutas(historialRuta);
-				asociarPanel("PanelHistorialRuta");
-			}
-		});
+		mntmHistorialRutas = new JMenuItem("Historial de Rutas");
 		mntmHistorialRutas.setHorizontalAlignment(SwingConstants.CENTER);
 		mntmHistorialRutas.setFont(new Font("Dialog", Font.BOLD, 22));
 		mntmHistorialRutas.setBackground(new Color(255, 204, 153));
@@ -289,9 +246,6 @@ public class UI extends JFrame{
 
 	}
 
-	private void asociarPanel(String string) {
-		((CardLayout) contentPane.getLayout()).show(contentPane, string);
-	}
 
 
 		

@@ -7,21 +7,60 @@ import utiles.EstadoRuta;
 import utiles.Mercancia;
 
 public class RutaActivaDTO extends RutaDTO {
-	private float kmRecorrido;
+	private float kmRecorrido, kmRecorridoDescanso;
 	private EstadoRuta estado;
 	private Long conductorUno, conductorDos;
+	private LocalDateTime fechaTurno, fechaDescanso;
+	private boolean cambioTurno;
 
 	public RutaActivaDTO() {
 
 	}
 
-	public RutaActivaDTO(Mercancia mercancia, Long camionId, LocalDateTime fecha, float km, float kmRecorrido, EstadoRuta estado,
-			Long conductorUno, Long conductorDos, Long ID) {
+	public RutaActivaDTO(Mercancia mercancia, Long camionId, LocalDateTime fecha, float km, float kmRecorrido,
+			EstadoRuta estado, Long conductorUno, Long conductorDos, Long ID, boolean cambioTurno,
+			LocalDateTime fechaTurno, LocalDateTime fechaDescanso, float kmRecorridoDescanso) {
 		super(mercancia, camionId, fecha, km, ID);
 		this.kmRecorrido = kmRecorrido;
 		this.estado = estado;
 		this.conductorUno = conductorUno;
 		this.conductorDos = conductorDos;
+		this.cambioTurno = cambioTurno;
+		this.fechaTurno = fechaTurno;
+		this.fechaDescanso = fechaDescanso;
+		this.kmRecorridoDescanso = kmRecorridoDescanso;
+	}
+
+	public float getKmRecorridoDescanso() {
+		return kmRecorridoDescanso;
+	}
+
+	public void setKmRecorridoDescanso(float kmRecorridoDescanso) {
+		this.kmRecorridoDescanso = kmRecorridoDescanso;
+	}
+
+	public LocalDateTime getFechaDescanso() {
+		return fechaDescanso;
+	}
+
+	public void setFechaDescanso(LocalDateTime fechaDescanso) {
+		this.fechaDescanso = fechaDescanso;
+	}
+
+	public LocalDateTime getFechaTurno() {
+		return fechaTurno;
+	}
+
+	public void setFechaTurno(LocalDateTime fechaTurno) {
+		this.fechaTurno = fechaTurno;
+	}
+
+	public boolean isCambioTurno() {
+		return cambioTurno;
+	}
+
+	public void setCambioTurno(boolean cambioTurno) {
+		this.cambioTurno = cambioTurno;
 	}
 
 	public float getKmRecorrido() {
