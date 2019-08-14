@@ -52,32 +52,7 @@ public class ParaUI extends UI implements ActionListener {
 					fechaActual = LocalDateTime.of(2020, 1, 1, 00, 00, 00);
 					primeraVez = true;
 				} else {
-					fechaActual = facade.obtenerHoraAplicacion();
-					fechaSistemaAntigua = facade.obtenerHoraSistema();
-					LocalDateTime tempDateTime = LocalDateTime.from(fechaSistemaAntigua);
-
-					long years = tempDateTime.until(LocalDateTime.now(), ChronoUnit.YEARS);
-					tempDateTime = tempDateTime.plusYears(years);
-
-					long months = tempDateTime.until(LocalDateTime.now(), ChronoUnit.MONTHS);
-					tempDateTime = tempDateTime.plusMonths(months);
-
-					long days = tempDateTime.until(LocalDateTime.now(), ChronoUnit.DAYS);
-					tempDateTime = tempDateTime.plusDays(days);
-
-					long hours = tempDateTime.until(LocalDateTime.now(), ChronoUnit.HOURS);
-					tempDateTime = tempDateTime.plusHours(hours);
-
-					long minutes = tempDateTime.until(LocalDateTime.now(), ChronoUnit.MINUTES);
-					tempDateTime = tempDateTime.plusMinutes(minutes);
-
-					long seconds = tempDateTime.until(LocalDateTime.now(), ChronoUnit.SECONDS);
-					fechaActual = fechaActual.plusYears(years);
-					fechaActual = fechaActual.plusMonths(months);
-					fechaActual = fechaActual.plusDays(days);
-					fechaActual = fechaActual.plusHours(hours);
-					fechaActual = fechaActual.plusMinutes(minutes);
-					fechaActual = fechaActual.plusSeconds(seconds);
+					añadirTiempo();
 				}
 			}
 		});
@@ -99,58 +74,58 @@ public class ParaUI extends UI implements ActionListener {
 		tiempo.start();
 	}
 
-private void paneles() {
-		//CONDUCTOR
-	mntmContratar.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			asociarPanel("PanelContratar");
-		}
-	});
-	mntmDespedir.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			asociarPanel("PanelDespedir");
-		}
-	});
-	mntmConsultasConductor.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			controladorPanelConsultaConduc.rellenarTablaConductor(consultaConduc, facade);
-			asociarPanel("PanelConsultaConductor");
-		}
-	});
-	mntmComprar.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			asociarPanel("PanelComprar");
-		}
-	});
-	mntmVender.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			asociarPanel("PanelVender");
-		}
-	});
-	menuItemHistorialCamion.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			controladorPanelConsultaCamion.rellenarTablaCamion(consultaCamion,facade);
-			asociarPanel("PanelConsultaCamion");
-		}
-	});
-	mntmCrearRuta.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			asociarPanel("PanelNuevaRuta");
-		}
-	});
-	mntmRutasActivas.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			controladorPanelRutasActivas.rellenarTablaRutasActivas(rutaActiva,facade);
-			asociarPanel("PanelRutaActiva");
-		}
-	});
-	mntmHistorialRutas.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			controladorPanelHistorialRuta.rellenarTablaHistorialRutas(historialRuta,facade);
-			asociarPanel("PanelHistorialRuta");
-		}
-	});
-		
+	private void paneles() {
+		// CONDUCTOR
+		mntmContratar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				asociarPanel("PanelContratar");
+			}
+		});
+		mntmDespedir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				asociarPanel("PanelDespedir");
+			}
+		});
+		mntmConsultasConductor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorPanelConsultaConduc.rellenarTablaConductor(consultaConduc, facade);
+				asociarPanel("PanelConsultaConductor");
+			}
+		});
+		mntmComprar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				asociarPanel("PanelComprar");
+			}
+		});
+		mntmVender.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				asociarPanel("PanelVender");
+			}
+		});
+		menuItemHistorialCamion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controladorPanelConsultaCamion.rellenarTablaCamion(consultaCamion, facade);
+				asociarPanel("PanelConsultaCamion");
+			}
+		});
+		mntmCrearRuta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				asociarPanel("PanelNuevaRuta");
+			}
+		});
+		mntmRutasActivas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorPanelRutasActivas.rellenarTablaRutasActivas(rutaActiva, facade);
+				asociarPanel("PanelRutaActiva");
+			}
+		});
+		mntmHistorialRutas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorPanelHistorialRuta.rellenarTablaHistorialRutas(historialRuta, facade);
+				asociarPanel("PanelHistorialRuta");
+			}
+		});
+
 	}
 
 //CAMION
@@ -189,12 +164,15 @@ private void paneles() {
 			controladorMensaje.mostrarMensajes(despedir.getPanelMensaje(), "Baja correctamente");
 		}
 	};
-	// RUTA
+// RUTA
 	ActionListener NuevaRutaListener = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			facade.guardarRuta(controlPanelRuta.obtenerDatos(getPanelRuta()),fechaActual);
-			controlPanelRuta.vaciarDatos(ruta.getPanelRuta());
-			controladorMensaje.mostrarMensajes(ruta.getPanelMensaje(), "Ruta creada");
+			if (facade.guardarRuta(controlPanelRuta.obtenerDatos(getPanelRuta()), fechaActual)) {
+				controlPanelRuta.vaciarDatos(ruta.getPanelRuta());
+				controladorMensaje.mostrarMensajes(ruta.getPanelMensaje(), "Ruta creada");
+			} else {
+				controladorMensaje.mostrarMensajes(contratar.getPanelMensaje(), "Campos erróneos");
+			}
 		}
 	};
 
@@ -255,7 +233,6 @@ private void paneles() {
 		}
 
 	}
-	
 
 	private void asociarPanel(String string) {
 		((CardLayout) contentPane.getLayout()).show(contentPane, string);
@@ -267,7 +244,35 @@ private void paneles() {
 		hora.setText(fechaActual.toLocalTime().toString());
 		fecha.setText(fechaActual.toLocalDate().toString());
 		facade.modificarHoraAplicacion(fechaActual);
-		paneles();
+	}
+
+	public void añadirTiempo() {
+		fechaActual = facade.obtenerHoraAplicacion();
+		fechaSistemaAntigua = facade.obtenerHoraSistema();
+		LocalDateTime tempDateTime = LocalDateTime.from(fechaSistemaAntigua);
+
+		long years = tempDateTime.until(LocalDateTime.now(), ChronoUnit.YEARS);
+		tempDateTime = tempDateTime.plusYears(years);
+
+		long months = tempDateTime.until(LocalDateTime.now(), ChronoUnit.MONTHS);
+		tempDateTime = tempDateTime.plusMonths(months);
+
+		long days = tempDateTime.until(LocalDateTime.now(), ChronoUnit.DAYS);
+		tempDateTime = tempDateTime.plusDays(days);
+
+		long hours = tempDateTime.until(LocalDateTime.now(), ChronoUnit.HOURS);
+		tempDateTime = tempDateTime.plusHours(hours);
+
+		long minutes = tempDateTime.until(LocalDateTime.now(), ChronoUnit.MINUTES);
+		tempDateTime = tempDateTime.plusMinutes(minutes);
+
+		long seconds = tempDateTime.until(LocalDateTime.now(), ChronoUnit.SECONDS);
+		fechaActual = fechaActual.plusYears(years);
+		fechaActual = fechaActual.plusMonths(months);
+		fechaActual = fechaActual.plusDays(days);
+		fechaActual = fechaActual.plusHours(hours);
+		fechaActual = fechaActual.plusMinutes(minutes);
+		fechaActual = fechaActual.plusSeconds(seconds);
 	}
 
 }

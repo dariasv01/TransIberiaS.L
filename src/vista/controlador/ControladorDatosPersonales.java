@@ -25,7 +25,7 @@ public class ControladorDatosPersonales {
 		modelo.setNombre(panel.txtNombre.getText()+" "+panel.txtaApellido.getText());
 		modelo.setDireccion(panel.txtDireccion.getText());
 		modelo.setTelefono(panel.textTelefono.getText());
-		if (panel.getEspecialidad() != null) {
+		if (panel.getEspecialidad() != null && panel.getEspecialidad().getSelectedIndex()>0) {
 			modelo.setHabilidad((Habilidad) panel.getEspecialidad().getSelectedItem());
 		}
 		return modelo;

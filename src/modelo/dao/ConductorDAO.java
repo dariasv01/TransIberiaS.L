@@ -73,6 +73,20 @@ public class ConductorDAO {
 		return mapa;
 	}
 
+	public HashMap<Long, String> obtenerMapaIDParado() {
+		HashMap<Long, String> mapa = new HashMap<Long, String>();
+		DAO<ConductorDTO> acceso = new DAO<>(rutaCarpeta, false);
+		List<String> lista = acceso.listarElementosPorNombre();
+		for (String nombre : lista) {
+			Long idConductorDTO = new Long(nombre.replace(extension, ""));
+			ConductorDTO conductorDTO = consultar(idConductorDTO);
+			if ((conductorDTO.getEstado() == EstadoConductor.Parado)) {
+				mapa.put(conductorDTO.getID(), conductorDTO.getNombre());
+			}
+		}
+		return mapa;
+	}
+	
 	public HashMap<Long, String> obtenerMapaIDFragil() {
 		HashMap<Long, String> mapa = new HashMap<Long, String>();
 		DAO<ConductorDTO> acceso = new DAO<>(rutaCarpeta, false);

@@ -49,6 +49,10 @@ public class Facade {
 	public HashMap<Long, String> obtnerMapaConductor() {
 		return conductorNucleo.obtenerMapaIDNombre();
 	}
+	
+	public HashMap<Long, String> obtnerMapaConductorParado() {
+		return conductorNucleo.obtenerMapaIDParado();
+	}
 
 	public HashMap<Long, String> obtnerMapaFragil() {
 		return conductorNucleo.obtenerMapaIDFragil();

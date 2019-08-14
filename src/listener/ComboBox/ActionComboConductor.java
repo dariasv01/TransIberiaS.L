@@ -37,7 +37,7 @@ public class ActionComboConductor implements FocusListener, ActionListener {
 		comboNombre.removeAllItems();
 		comboID.removeAllItems();
 	
-		HashMap<Long, String> mapa = facade.obtnerMapaConductor();
+		HashMap<Long, String> mapa = facade.obtnerMapaConductorParado();
 		for (Map.Entry<Long, String> entry : mapa.entrySet()) {
 			comboNombre.addItem(new Item(entry.getKey(), String.valueOf(entry.getKey())));
 			comboID.addItem(new Item(entry.getKey(), entry.getValue()));

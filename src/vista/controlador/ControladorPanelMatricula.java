@@ -21,7 +21,7 @@ public class ControladorPanelMatricula {
 		if (!panel.txtID.getText().isEmpty()) {
 			modelo.setID(new Long(panel.txtID.getText()));
 		}
-		if (panel.getEspecialidad() != null) {
+		if (panel.getEspecialidad() != null && panel.getEspecialidad().getSelectedIndex()>0) {
 			modelo.setMarca((Marca) panel.getEspecialidad().getSelectedItem());
 		}
 		modelo.setPotencia(panel.txtPotencia.getText());

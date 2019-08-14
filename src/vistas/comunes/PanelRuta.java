@@ -29,7 +29,7 @@ public class PanelRuta extends JPanel {
 	protected JLabel lblCamion;
 	protected JComboBox ComboCamion;
 	protected JLabel lblDistancia;
-	protected JTextField txtDistancia;
+	public JTextField txtDistancia;
 	protected JLabel lblKm;
 	protected JCheckBox ChBoxUno;
 	protected JCheckBox ChBoxDos;

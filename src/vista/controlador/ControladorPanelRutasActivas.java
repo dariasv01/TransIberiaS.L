@@ -43,9 +43,10 @@ public class ControladorPanelRutasActivas {
 
 			if (ruta.isCambioTurno() == false || null != ruta.getConductorDos()) {
 				if (ruta.getFechaDescanso() != null) {
-					ruta.setKmRecorrido(ruta.getKmRecorridoDescanso()+control.recorrerDistancia(ruta.getFechaDescanso()));
+					ruta.setKmRecorrido(
+							ruta.getKmRecorridoDescanso() + control.recorrerDistancia(ruta.getFechaDescanso(), facade));
 				} else {
-					ruta.setKmRecorrido(control.recorrerDistancia(ruta.getFecha()));
+					ruta.setKmRecorrido(control.recorrerDistancia(ruta.getFecha(), facade));
 				}
 			}
 			facade.modificarRuta(ruta);
@@ -73,7 +74,7 @@ public class ControladorPanelRutasActivas {
 			data[i][5] = estado;
 			data[i][6] = conductorNombre;
 
-			if (control.cambioConductorDosOdescansar(ruta.getFechaTurno()) && ruta.isCambioTurno() == false) {
+			if (control.cambioConductorDosOdescansar(ruta.getFechaTurno(), facade) && ruta.isCambioTurno() == false) {
 				if (null != ruta.getConductorDos()) {
 					facade.modificarConductor(conductorDos.getID(), EstadoConductor.Ruta);
 				} else {
@@ -87,7 +88,7 @@ public class ControladorPanelRutasActivas {
 				ruta.setCambioTurno(true);
 			}
 
-			if (control.cambioConductorUno(ruta.getFechaTurno()) && ruta.isCambioTurno()) {
+			if (control.cambioConductorUno(ruta.getFechaTurno(), facade) && ruta.isCambioTurno()) {
 				if (null != ruta.getConductorDos()) {
 					facade.modificarConductor(conductorDos.getID(), EstadoConductor.Ruta);
 				} else {

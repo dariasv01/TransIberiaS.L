@@ -7,19 +7,16 @@ import facade.Facade;
 
 public class Control {
 
-	private Facade facade = new Facade();
-	
-
-	public float recorrerDistancia(LocalDateTime fechaAntigua) {
+	public float recorrerDistancia(LocalDateTime fechaAntigua, Facade facade) {
 
 		float kmSegundo = 0.022222222222222f;
 
-		float segundosTotales=contadorDeSegundos(fechaAntigua);
+		float segundosTotales = contadorDeSegundos(fechaAntigua, facade);
 
 		return kmSegundo * segundosTotales;
 	}
 
-	public float contadorDeSegundos(LocalDateTime fechaAntigua) {
+	public float contadorDeSegundos(LocalDateTime fechaAntigua, Facade facade) {
 		float segundosTotales = 0;
 		LocalDateTime tempDateTime = LocalDateTime.from(fechaAntigua);
 		LocalDateTime fechaActual = facade.obtenerHoraAplicacion();
@@ -35,7 +32,7 @@ public class Control {
 
 		long seconds = tempDateTime.until(fechaActual, ChronoUnit.SECONDS);
 
-		segundosTotales = seconds + 60 * minutes + hours * 3600 + days *86400;
+		segundosTotales = seconds + 60 * minutes + hours * 3600 + days * 86400;
 		return segundosTotales;
 	}
 
@@ -47,14 +44,15 @@ public class Control {
 		return false;
 	}
 
-	public boolean cambioConductorDosOdescansar(LocalDateTime fechaInicio) {
-		if (28800<=contadorDeSegundos(fechaInicio)) {
+	public boolean cambioConductorDosOdescansar(LocalDateTime fechaInicio, Facade facade) {
+		if (28800 <= contadorDeSegundos(fechaInicio, facade)) {
 			return true;
 		}
 		return false;
 	}
-	public boolean cambioConductorUno(LocalDateTime fechaInicio) {
-		if (57600<=contadorDeSegundos(fechaInicio)) {
+
+	public boolean cambioConductorUno(LocalDateTime fechaInicio, Facade facade) {
+		if (57600 <= contadorDeSegundos(fechaInicio, facade)) {
 			return true;
 		}
 		return false;

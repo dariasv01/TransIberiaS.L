@@ -23,7 +23,7 @@ public class ControladorPanelRuta {
 
 		modelo.setKmRecorrido(0);
 
-		if (panel.getComboMercancia() != null) {
+		if (panel.getComboMercancia() != null && panel.getComboMercancia().getSelectedIndex()>0) {
 			modelo.setMercancia((Mercancia) panel.getComboMercancia().getSelectedItem());
 		}
 		if (panel.getComboCamion() != null) {

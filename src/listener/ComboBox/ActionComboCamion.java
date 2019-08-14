@@ -35,7 +35,7 @@ public class ActionComboCamion implements FocusListener, ActionListener {
 		comboNombre.removeAllItems();
 		comboID.removeAllItems();
 	
-		HashMap<Long, String> mapa = facade.obtnerMapaCamion();
+		HashMap<Long, String> mapa = facade.obtnerMapaEnGaraje();
 		for (Map.Entry<Long, String> entry : mapa.entrySet()) {
 			comboNombre.addItem(new Item(entry.getKey(), String.valueOf(entry.getKey())));
 			comboID.addItem(new Item(entry.getKey(), entry.getValue()));

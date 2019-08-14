@@ -74,6 +74,10 @@ private ConductorDAO dao= new ConductorDAO();
 		return dao.obtenerMapaIDNombre();
 	}
 	
+	public HashMap<Long, String> obtenerMapaIDParado() {
+		return dao.obtenerMapaIDParado();
+	}
+	
 	public HashMap<Long, String> obtenerMapaIDComun() {
 		return dao.obtenerMapaIDComun();
 	}
