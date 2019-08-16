@@ -45,6 +45,7 @@ public class ParaUI extends UI implements ActionListener {
 	boolean primeraVez;
 
 	public ParaUI() {
+		
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -52,7 +53,7 @@ public class ParaUI extends UI implements ActionListener {
 					fechaActual = LocalDateTime.of(2020, 1, 1, 00, 00, 00);
 					primeraVez = true;
 				} else {
-					añadirTiempo();
+					pasarTiempo();
 				}
 			}
 		});
@@ -76,56 +77,94 @@ public class ParaUI extends UI implements ActionListener {
 
 	private void paneles() {
 		// CONDUCTOR
+		contratar();
+		despedir();
+		historialConductor();
+		//CAMION
+		comprar();
+		vender();
+		historialCamiones();
+		//RUTA
+		nuevaRuta();
+		rutaActiva();
+		historialRuta();
+
+	}
+
+	private void contratar() {
 		mntmContratar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				asociarPanel("PanelContratar");
 			}
 		});
+	}
+
+	private void despedir() {
 		mntmDespedir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				asociarPanel("PanelDespedir");
 			}
 		});
+	}
+
+	private void historialConductor() {
 		mntmConsultasConductor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controladorPanelConsultaConduc.rellenarTablaConductor(consultaConduc, facade);
 				asociarPanel("PanelConsultaConductor");
 			}
 		});
+	}
+
+	private void comprar() {
 		mntmComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				asociarPanel("PanelComprar");
 			}
 		});
+	}
+
+	private void vender() {
 		mntmVender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				asociarPanel("PanelVender");
 			}
 		});
+	}
+
+	private void historialCamiones() {
 		menuItemHistorialCamion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controladorPanelConsultaCamion.rellenarTablaCamion(consultaCamion, facade);
 				asociarPanel("PanelConsultaCamion");
 			}
 		});
+	}
+
+	private void nuevaRuta() {
 		mntmCrearRuta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				asociarPanel("PanelNuevaRuta");
 			}
 		});
+	}
+
+	private void rutaActiva() {
 		mntmRutasActivas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controladorPanelRutasActivas.rellenarTablaRutasActivas(rutaActiva, facade);
 				asociarPanel("PanelRutaActiva");
 			}
 		});
+	}
+
+	private void historialRuta() {
 		mntmHistorialRutas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controladorPanelHistorialRuta.rellenarTablaHistorialRutas(historialRuta, facade);
 				asociarPanel("PanelHistorialRuta");
 			}
 		});
-
 	}
 
 //CAMION
@@ -237,16 +276,8 @@ public class ParaUI extends UI implements ActionListener {
 	private void asociarPanel(String string) {
 		((CardLayout) contentPane.getLayout()).show(contentPane, string);
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		fechaActual = fechaActual.plusSeconds(+1);
-		hora.setText(fechaActual.toLocalTime().toString());
-		fecha.setText(fechaActual.toLocalDate().toString());
-		facade.modificarHoraAplicacion(fechaActual);
-	}
-
-	public void añadirTiempo() {
+	
+	private void pasarTiempo() {
 		fechaActual = facade.obtenerHoraAplicacion();
 		fechaSistemaAntigua = facade.obtenerHoraSistema();
 		LocalDateTime tempDateTime = LocalDateTime.from(fechaSistemaAntigua);
@@ -273,6 +304,14 @@ public class ParaUI extends UI implements ActionListener {
 		fechaActual = fechaActual.plusHours(hours);
 		fechaActual = fechaActual.plusMinutes(minutes);
 		fechaActual = fechaActual.plusSeconds(seconds);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		fechaActual = fechaActual.plusSeconds(+1);
+		hora.setText(fechaActual.toLocalTime().toString());
+		fecha.setText(fechaActual.toLocalDate().toString());
+		facade.modificarHoraAplicacion(fechaActual);
 	}
 
 }

@@ -84,6 +84,7 @@ public class UI extends JFrame{
 	public UI() {
 		
 		
+		
 		setTitle("Trans Iberia S.L.");
 		setMaximumSize(new Dimension(2047483647, 2047483647));
 

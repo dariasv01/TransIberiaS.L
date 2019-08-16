@@ -55,86 +55,59 @@ public class ActionComboMercancias implements FocusListener, ActionListener {
 			switch (mercancia.getSelectedIndex()) {
 			case 1:
 				HashMap<Long, String> mapa = facade.obtnerMapaFragil();
-				conductorUno.removeAllItems();
-				conductorCinco.removeAllItems();
-				for (Map.Entry<Long, String> entry : mapa.entrySet()) {
-					conductorUno.addItem(new Item(entry.getKey(), entry.getValue()));
-					conductorCinco.addItem(new Item(entry.getKey(), entry.getValue()));
-				}
-				if (mapa.size() == 1) {
-					conductorCinco.setEnabled(false);
-					chUno.setSelected(true);
-					chDos.setSelected(false);
-					chDos.setEnabled(false);
-					conductorCinco.removeAllItems();
-				} else {
-					chDos.setEnabled(true);
-				}
+				selecionMercancia(mapa);
 				break;
 			case 2:
 				HashMap<Long, String> mapaDos = facade.obtnerMapaInflamable();
-				conductorUno.removeAllItems();
-				conductorCinco.removeAllItems();
-				for (Map.Entry<Long, String> entryDos : mapaDos.entrySet()) {
-					conductorUno.addItem(new Item(entryDos.getKey(), entryDos.getValue()));
-					conductorCinco.addItem(new Item(entryDos.getKey(), entryDos.getValue()));
-				}
-				if (mapaDos.size() == 1) {
-					conductorCinco.setEnabled(false);
-					chUno.setSelected(true);
-					chDos.setSelected(false);
-					chDos.setEnabled(false);
-					conductorCinco.removeAllItems();
-				} else {
-					chDos.setEnabled(true);
-				}
+				selecionMercancia(mapaDos);
 				
 				break;
 			case 3:
 				HashMap<Long, String> mapaTres = facade.obtnerMapaPesada();
-				conductorUno.removeAllItems();
-				conductorCinco.removeAllItems();
-				for (Map.Entry<Long, String> entryTres : mapaTres.entrySet()) {
-					conductorUno.addItem(new Item(entryTres.getKey(), entryTres.getValue()));
-					conductorCinco.addItem(new Item(entryTres.getKey(), entryTres.getValue()));
-				}
-				if (mapaTres.size() == 1) {
-					conductorCinco.setEnabled(false);
-					chUno.setSelected(true);
-					chDos.setSelected(false);
-					chDos.setEnabled(false);
-					conductorCinco.removeAllItems();
-				} else {
-					chDos.setEnabled(true);
-				}
+				selecionMercancia(mapaTres);
 				break;
 			case 4:
 				HashMap<Long, String> mapaCuatro = facade.obtnerMapaComun();
-				conductorUno.removeAllItems();
-				conductorCinco.removeAllItems();
-				for (Map.Entry<Long, String> entryCuatro : mapaCuatro.entrySet()) {
-					conductorUno.addItem(new Item(entryCuatro.getKey(), entryCuatro.getValue()));
-					conductorCinco.addItem(new Item(entryCuatro.getKey(), entryCuatro.getValue()));
-				}
-				if (mapaCuatro.size() == 1) {
-					conductorCinco.setEnabled(false);
-					chUno.setSelected(true);
-					chDos.setSelected(false);
-					chDos.setEnabled(false);
-					conductorCinco.removeAllItems();
-				} else {
-					chDos.setEnabled(true);
-				}
+				selecionMercancia(mapaCuatro);
 				break;
 			default:
 				break;
 			}
-
 		}
+		comboCamion();
+	}
+
+	private void comboCamion() {
 		camion.removeAllItems();
 		HashMap<Long, String> mapa = facade.obtnerMapaEnGaraje();
 		for (Map.Entry<Long, String> entry : mapa.entrySet()) {
 			camion.addItem(new Item(entry.getKey(), entry.getValue()));
+		}
+	}
+
+	private void selecionMercancia(HashMap<Long, String> mapa) {
+		conductorUno.removeAllItems();
+		conductorCinco.removeAllItems();
+		rellenarComboConductor(mapa);
+		controladorComboConductor(mapa);
+	}
+
+	private void controladorComboConductor(HashMap<Long, String> mapa) {
+		if (mapa.size() == 1) {
+			conductorCinco.setEnabled(false);
+			chUno.setSelected(true);
+			chDos.setSelected(false);
+			chDos.setEnabled(false);
+			conductorCinco.removeAllItems();
+		} else {
+			chDos.setEnabled(true);
+		}
+	}
+
+	private void rellenarComboConductor(HashMap<Long, String> mapa) {
+		for (Map.Entry<Long, String> entry : mapa.entrySet()) {
+			conductorUno.addItem(new Item(entry.getKey(), entry.getValue()));
+			conductorCinco.addItem(new Item(entry.getKey(), entry.getValue()));
 		}
 	}
 
